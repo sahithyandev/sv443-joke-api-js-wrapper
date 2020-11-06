@@ -1,12 +1,24 @@
 {
-  "name": "joke-api",
-  "version": "1.0.0",
-  "description": "",
-  "main": "src/index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+    "name": "joke-api",
+    "version": "1.0.0",
+    "description": "",
+    "author": {
+        "name": "Sahithyan",
+        "email": "sahithyan2701@gmail.com"
+    },
+    "main": "src/index.js",
+    "scripts": {
+        "watch": "watchexec --exts ts npm run build",
+        "build": "node build.js",
+        "minify-build": "MODE=production node build.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "api",
+        "joke-api"
+    ],
+    "license": "ISC",
+    "devDependencies": {
+        "esbuild": "^0.8.4"
+    }
 }
