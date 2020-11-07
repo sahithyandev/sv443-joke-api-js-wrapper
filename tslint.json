@@ -1,0 +1,12 @@
+{
+    "defaultSecurity": "error",
+    "extends": ["tslint:latest", "tslint-config-prettier"],
+    "jsRule": {},
+    "rules": {
+        "member-access": false,
+        "object-literal-sort-keys": false,
+        "ordered-imports": false,
+        "interface-name": false
+    },
+    "rulesDirectory": []
+}
