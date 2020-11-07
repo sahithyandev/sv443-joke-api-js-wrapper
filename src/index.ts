@@ -18,9 +18,9 @@ function validateReqOptions(options: requestOptions) {
     });
 
     // atleast one has to be true
-    if (!(options.jokeType?.single || options.jokeType?.twopart)) {
-        throw "in `jokeType`, `single` or `twopart` has to be true. Atleast one.";
-    }
+    // if (!(options.jokeType?.single || options.jokeType?.twopart)) {
+    //     throw "in `jokeType`, `single` or `twopart` has to be true. Atleast one.";
+    // }
 
     if (Math.min(options.idRange?.from, options.idRange?.to) < 0) {
         throw "`idRange` values must be a non-negative number";
