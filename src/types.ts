@@ -1,6 +1,5 @@
 export type category =
-    | ""
-    | "Any"
+    | undefined
     | "Programming"
     | "Miscellaneous"
     | "Dark"
@@ -9,13 +8,10 @@ export type category =
     | "Christmas";
 
 export type requestOptions = {
-    categories: category[];
-    responseFormat: "json" | "xml" | "yaml" | "plain";
-    jokeType: {
-        single: Boolean;
-        twopart: Boolean;
-    };
-    searchString: String;
+    categories?: category[] | "Any";
+    responseFormat?: "json" | "xml" | "yaml" | "plain";
+    jokeType: "single" | "twopart" | "any";
+    searchString?: String;
     language: "cs" | "de" | "en" | "es";
     flags: {
         nsfw: Boolean;
