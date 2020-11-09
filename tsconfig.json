@@ -3,7 +3,7 @@
     "declaration": true,
     "lib": ["dom", "ES2015", "ES2016"],
     "target": "es6",
-    "module": "commonjs",
+    "module": "ES6",
     "noImplicitAny": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
