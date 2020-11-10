@@ -1,9 +1,9 @@
 import { requestOptions, strictRequestOptions } from "./types";
 const fetch = require("node-fetch");
 
-const API_HOME = "https://sv443.net/jokeapi/v2/joke/";
+export const API_HOME = "https://sv443.net/jokeapi/v2/joke/";
 // TK Make it dynamic
-const MAX_ID_NUMBER = 291;
+export const MAX_ID_NUMBER = 257;
 const capitalize = (str: string) => str[0].toUpperCase() + str.slice(1);
 
 function validateReqOptions(options: strictRequestOptions) {
@@ -33,20 +33,21 @@ function validateReqOptions(options: strictRequestOptions) {
     return true;
 }
 
-function getJokes(options?: requestOptions) {
+export function getJokes(options?: requestOptions) {
     if (options === undefined) {
         options = {};
         console.warn(
             "Options for getJokes() is not defined. The default options will be used"
         );
     }
-    // set default values for undefined
-    if (options.categories === undefined) options.categories = "Any";
+    if (options.categories === undefined || options.categories.length == 0)
+        options.categories = "Any";
     if (options.language === undefined) options.language = "en";
     if (options.jokeType === undefined) options.jokeType = "any";
     if (options.responseFormat === undefined) options.responseFormat = "json";
     if (options.amount === undefined) options.amount = 1;
-    if (options.flags === undefined) options.flags = "";
+    if (options.flags === undefined || options.flags.length == 0)
+        options.flags = "";
     if (options.idRange === undefined) {
         options.idRange = {
             from: 0,
@@ -64,13 +65,14 @@ function getJokes(options?: requestOptions) {
             ? capitalize(options.categories)
             : options.categories.map((v) => capitalize(v as string)).join(",");
 
-    let params = {
+    const params = {
         amount: options.amount,
         lang: options.language,
         format: options.responseFormat,
         idRange: `${options.idRange.from}-${options.idRange.to}`,
-        contains:
-            options.searchString !== undefined ? options.searchString : null,
+        contains: [undefined, ""].includes(options.searchString)
+            ? null
+            : options.searchString,
         type: options.jokeType === "any" ? null : options.jokeType,
         blackListFlags:
             typeof options.flags === "string" ? null : options.flags.join(","),
@@ -78,7 +80,7 @@ function getJokes(options?: requestOptions) {
     apiReqUrl +=
         "?" +
         Object.entries(params)
-            .filter(([_, value]) => value !== null)
+            .filter(([_, v]) => v !== null)
             .map(([key, v]) => `${key}=${v}`)
             .join("&");
 
@@ -90,4 +92,13 @@ function getJokes(options?: requestOptions) {
     return null;
 }
 
-export { getJokes };
+// TK make them dynamic
+export const AVAILABLE_CATEGORIES = [
+    "Programming",
+    "Miscellaneous",
+    "Dark",
+    "Pun",
+    "Spooky",
+    "Christmas",
+];
+export const AVAILABLE_FLAGS = ["nsfw", "religious", "political", "sexist"];

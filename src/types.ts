@@ -1,4 +1,4 @@
-export type category =
+export type Category =
     | "Programming"
     | "Miscellaneous"
     | "Dark"
@@ -6,16 +6,16 @@ export type category =
     | "Spooky"
     | "Christmas";
 
-export type flag = "nsfw" | "religious" | "political" | "sexist";
+export type Flag = "nsfw" | "religious" | "political" | "sexist";
 
 // for validation
 export type strictRequestOptions = {
-    categories: category[] | "Any";
+    categories: Category[] | "Any";
     responseFormat: "json" | "xml" | "yaml" | "plain";
     jokeType: "single" | "twopart" | "any";
-    searchString: String;
+    searchString: string;
     language: "cs" | "de" | "en" | "es";
-    flags: "" | flag[];
+    flags: "" | Flag[];
     idRange: {
         from: number;
         to: number;
@@ -27,12 +27,12 @@ export type strictRequestOptions = {
 // all values are optional
 // undefined values will be set to the default values
 export type requestOptions = {
-    categories?: category[] | "Any"; // default 'Any
+    categories?: Category[] | "Any"; // default 'Any
     responseFormat?: "json" | "xml" | "yaml" | "txt"; // default 'json'
     jokeType?: "single" | "twopart" | "any"; // default 'any'
-    searchString?: String;
+    searchString?: string;
     language?: "cs" | "de" | "en" | "es"; // default 'en'
-    flags?: "" | flag[]; // default all false
+    flags?: "" | Flag[]; // default all false
     idRange?: {
         from?: number; // default 0
         to?: number; // default 291 (which is the maximum)
@@ -40,4 +40,4 @@ export type requestOptions = {
     amount?: number; // default 1
 };
 
-export declare function getJokes(options: requestOptions): Promise<Response>;
+export declare function getJokes(options?: requestOptions): Promise<Response>;
