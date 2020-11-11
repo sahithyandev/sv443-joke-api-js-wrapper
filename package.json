@@ -1,12 +1,12 @@
 {
     "name": "sv443-joke-api",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "JavaScript package for Sv443's Joke API",
     "author": {
         "name": "Sahithyan",
         "email": "sahithyan2701@gmail.com"
     },
-    "types": "lib/types.d.ts",
+    "types": "lib/index.d.ts",
     "main": "lib/index",
     "scripts": {
         "watch": "tsc -w",

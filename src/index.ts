@@ -1,7 +1,49 @@
-import { requestOptions, strictRequestOptions } from "./types";
+// import { requestOptions, strictRequestOptions } from "./types";
 const fetch = require("node-fetch");
 
-export const API_HOME = "https://sv443.net/jokeapi/v2/joke/";
+export type Category =
+    | "Programming"
+    | "Miscellaneous"
+    | "Dark"
+    | "Pun"
+    | "Spooky"
+    | "Christmas";
+
+export type Flag = "nsfw" | "religious" | "political" | "racist" | "sexist";
+
+// for validation
+export type strictRequestOptions = {
+    categories: Category[] | "Any";
+    responseFormat: "json" | "xml" | "yaml" | "plain";
+    jokeType: "single" | "twopart" | "any";
+    searchString: string;
+    language: "cs" | "de" | "en" | "es";
+    flags: "" | Flag[];
+    idRange: {
+        from: number;
+        to: number;
+    };
+    amount: number;
+};
+
+// to get the input from the user
+// all values are optional
+// undefined values will be set to the default values
+export type requestOptions = {
+    categories?: Category[] | "Any"; // default 'Any
+    responseFormat?: "json" | "xml" | "yaml" | "txt"; // default 'json'
+    jokeType?: "single" | "twopart" | "any"; // default 'any'
+    searchString?: string;
+    language?: "cs" | "de" | "en" | "es"; // default 'en'
+    flags?: "" | Flag[]; // default all false
+    idRange?: {
+        from?: number; // default 0
+        to?: number; // default 291 (which is the maximum)
+    };
+    amount?: number; // default 1
+};
+
+export const API_HOME = "https://sv443.net/jokeapi/v2/";
 // TK Make it dynamic
 export const MAX_ID_NUMBER = 257;
 const capitalize = (str: string) => str[0].toUpperCase() + str.slice(1);
@@ -16,6 +58,7 @@ function validateReqOptions(options: strictRequestOptions) {
         }
     });
 
+    // TK Check these with fewer lines of code
     if (Math.min(options.idRange.from, options.idRange.to) < 0) {
         throw "`idRange` values must be a non-negative number";
     }
@@ -26,7 +69,7 @@ function validateReqOptions(options: strictRequestOptions) {
         throw `in 'idRange', 'to' value can't be higher than ${MAX_ID_NUMBER}`;
     }
 
-    if (options.amount !== undefined && options.amount < 1) {
+    if (options.amount < 1) {
         throw "`amount` can't be less than 1";
     }
 
@@ -59,7 +102,7 @@ export function getJokes(options?: requestOptions) {
             options.idRange.to = MAX_ID_NUMBER;
     }
 
-    let apiReqUrl = API_HOME;
+    let apiReqUrl = API_HOME + "joke/";
     apiReqUrl +=
         options.categories === "Any"
             ? capitalize(options.categories)
@@ -101,4 +144,10 @@ export const AVAILABLE_CATEGORIES = [
     "Spooky",
     "Christmas",
 ];
-export const AVAILABLE_FLAGS = ["nsfw", "religious", "political", "sexist"];
+export const AVAILABLE_FLAGS = [
+    "nsfw",
+    "religious",
+    "political",
+    "racis",
+    "sexist",
+];
