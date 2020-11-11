@@ -38,14 +38,15 @@ export type strictRequestOptions = {
 // all values are optional
 // undefined values will be set to the default values
 export type requestOptions = {
-    categories?: Category[] | "Any"; // default 'Any
+    categories?: Category[] | "Any"; // default 'Any'
     responseFormat?: "json" | "xml" | "yaml" | "txt"; // default 'json'
     jokeType?: "single" | "twopart" | "any"; // default 'any'
     searchString?: string;
     language?: "cs" | "de" | "en" | "es"; // default 'en'
-    flags?: "" | Flag[]; // default all false
+    flags?: "" | Flag[]; // default ''
     idRange?: {
         from?: number; // default 0
+        // If you are using `en` as your language, maximum is 257
         to?: number; // default 291 (which is the maximum)
     };
     amount?: number; // default 1
