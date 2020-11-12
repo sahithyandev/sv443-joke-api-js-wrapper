@@ -9,14 +9,17 @@
     "types": "dist/index.d.ts",
     "main": "dist/index",
     "scripts": {
-        "watch": "tsc -w",
-        "build": "tsc",
+        "watch": "webpack --watch",
+        "build": "webpack",
         "pre": "tsc && npm version patch"
     },
     "keywords": [
         "api",
         "joke-api"
     ],
+    "bin": {
+        "joke-api": "./cli/index.js"
+    },
     "license": "ISC",
     "devDependencies": {
         "@types/node": "^14.14.6",
