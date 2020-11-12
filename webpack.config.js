@@ -15,6 +15,10 @@ module.exports = {
         extensions: ['.ts']
     },
     output: {
+        library: {
+            name: 'JokeAPI',
+            type: 'umd'
+        },
         filename: 'index.js',
         path: path.join(__dirname, 'dist')
     }

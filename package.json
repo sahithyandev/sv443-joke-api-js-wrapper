@@ -1,7 +1,7 @@
 {
     "name": "sv443-joke-api",
-    "version": "0.0.3",
-    "description": "JavaScript package for Sv443's Joke API",
+    "version": "0.0.5",
+    "description": "JavaScript wrapper for Sv443's Joke API",
     "author": {
         "name": "Sahithyan",
         "email": "sahithyan2701@gmail.com"

@@ -116,6 +116,6 @@ export const AVAILABLE_FLAGS = [
     "nsfw",
     "religious",
     "political",
-    "racis",
+    "racist",
     "sexist",
 ];
