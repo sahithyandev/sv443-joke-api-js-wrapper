@@ -1,40 +1,43 @@
-import { requestOptions, strictRequestOptions } from "./types";
+import { requestOptions, strictRequestOptions, Error } from "./types";
 import { capitalize } from "./utils";
 const fetch = require("node-fetch");
 
 export const API_HOME = "https://sv443.net/jokeapi/v2/";
-// TK Make it dynamic
-export const MAX_ID_NUMBER = 257;
 
-function validateReqOptions(options: strictRequestOptions) {
-    const rules: { [key: string]: string } = {};
+function validateReqOptions(options: strictRequestOptions): Error | null {
+    const rules: { [key: string]: Error } = {
+        "options.amount < 1": {
+            errorMessage: "`amount` can't be less than 1",
+        },
+    };
 
-    Object.keys(rules).forEach((key) => {
-        console.log(eval(key));
-        if (eval(key)) {
-            throw rules[key];
-        }
-    });
+    for (let rule of Object.keys(rules)) {
+        if (eval(rule)) return rules[rule];
+    }
 
     // TK Check these with fewer lines of code
-    if (Math.min(options.idRange.from, options.idRange.to) < 0) {
-        throw "`idRange` values must be a non-negative number";
+    if (options.idRange?.from && options.idRange?.to) {
+        if (Math.min(options.idRange.from, options.idRange.to) < 0) {
+            return {
+                errorMessage: "`idRange` values must be a non-negative number",
+            };
+        }
+        if (options.idRange.from > options.idRange.to) {
+            return {
+                errorMessage:
+                    "in `idRange`, `from` value must be smaller `to` value",
+            };
+        }
     }
-    if (options.idRange.from > options.idRange.to) {
-        throw "in `idRange`, `from` value must be smaller `to` value";
-    }
-    if (options.idRange.to > MAX_ID_NUMBER) {
-        throw `in 'idRange', 'to' value can't be higher than ${MAX_ID_NUMBER}`;
-    }
+    // @disabled because MAX_ID_NUMBER is not a constant
+    // if (options.idRange.to > MAX_ID_NUMBER) {
+    //     throw `in 'idRange', 'to' value can't be higher than ${MAX_ID_NUMBER}`;
+    // }
 
-    if (options.amount < 1) {
-        throw "`amount` can't be less than 1";
-    }
-
-    return true;
+    return null;
 }
 
-export function getJokes(options?: requestOptions) {
+export function getJokes(options?: requestOptions): Promise<Response> | null {
     if (options === undefined) {
         options = {};
         console.warn(
@@ -49,16 +52,18 @@ export function getJokes(options?: requestOptions) {
     if (options.amount === undefined) options.amount = 1;
     if (options.flags === undefined || options.flags.length == 0)
         options.flags = "";
-    if (options.idRange === undefined) {
-        options.idRange = {
-            from: 0,
-            to: MAX_ID_NUMBER,
-        };
-    } else {
-        if (options.idRange.from === undefined) options.idRange.from = 0;
-        if (options.idRange.to === undefined)
-            options.idRange.to = MAX_ID_NUMBER;
-    }
+
+    // @disabled MAX_ID_NUMBER is not constant
+    // if (options.idRange === undefined) {
+    //     options.idRange = {
+    //         from: 0,
+    //         to: MAX_ID_NUMBER,
+    //     };
+    // } else {
+    //     if (options.idRange.from === undefined) options.idRange.from = 0;
+    //     if (options.idRange.to === undefined)
+    //         options.idRange.to = MAX_ID_NUMBER;
+    // }
 
     let apiReqUrl = API_HOME + "joke/";
     apiReqUrl +=
@@ -70,7 +75,10 @@ export function getJokes(options?: requestOptions) {
         amount: options.amount,
         lang: options.language,
         format: options.responseFormat,
-        idRange: `${options.idRange.from}-${options.idRange.to}`,
+        idRange:
+            options.idRange?.from && options.idRange?.to
+                ? `${options.idRange.from}-${options.idRange.to}`
+                : null,
         contains: [undefined, ""].includes(options.searchString)
             ? null
             : options.searchString,
@@ -82,15 +90,17 @@ export function getJokes(options?: requestOptions) {
         "?" +
         Object.entries(params)
             .filter(([_, v]) => v !== null)
-            .map(([key, v]) => `${key}=${v}`)
+            .map(([key, v]) => `${key}-${v}`)
             .join("&");
 
     // do validation
-    if (validateReqOptions(<strictRequestOptions>options)) {
+    let validationError = validateReqOptions(<strictRequestOptions>options);
+    if (validationError) {
+        throw validationError;
+    } else {
         // query it
         return fetch(apiReqUrl);
     }
-    return null;
 }
 
 // TK make them dynamic

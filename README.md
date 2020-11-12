@@ -22,19 +22,18 @@ yarn add sv443-joke-api
 const JokeApi = require("joke-api");
 
 // This snippet shows the available values of those functions
-// all options are optional
 // If not defined, will be set to the default alue
+// if default is not shown below, it will be left out while making a request
 JokeApi.getJokes({
     categories?: Category[] | "Any"; // default 'Any'
     responseFormat?: "json" | "xml" | "yaml" | "txt"; // default 'json'
     jokeType?: "single" | "twopart" | "any"; // default 'any'
     searchString?: string;
     language?: "cs" | "de" | "en" | "es"; // default 'en'
-    flags?: "" | Flag[]; // default ""
+    flags?: "" | Flag[]; // default ''
     idRange?: {
-        from?: number; // default 0
-        // If you are using `en` as your language, maximum is 257
-        to?: number; // default 291 (which is the maximum)
+        from?: number;
+        to?: number;
     };
     amount?: number; // default 1
 }).then((res) => res.json())

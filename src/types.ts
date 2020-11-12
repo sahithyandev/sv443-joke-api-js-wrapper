@@ -1,14 +1,3 @@
-// I moved the whole code from this file to index.ts
-// Because when I built the project before, it built 6 files (3 files for each)
-// I don't want that. I wanted to have all my code in 3 files only.
-// One for code, one for declarations and one for map
-
-// I searched on google how to do this, but couldn't find any solutions.
-// I think webpack or something else is needed
-
-// TK Fix this problem
-// UPDATE: I am currently working on solving this problem.
-
 export type Category =
     | "Programming"
     | "Miscellaneous"
@@ -27,9 +16,9 @@ export type strictRequestOptions = {
     searchString: string;
     language: "cs" | "de" | "en" | "es";
     flags: "" | Flag[];
-    idRange: {
-        from: number;
-        to: number;
+    idRange?: {
+        from?: number;
+        to?: number;
     };
     amount: number;
 };
@@ -45,9 +34,12 @@ export type requestOptions = {
     language?: "cs" | "de" | "en" | "es"; // default 'en'
     flags?: "" | Flag[]; // default ''
     idRange?: {
-        from?: number; // default 0
-        // If you are using `en` as your language, maximum is 257
-        to?: number; // default 291 (which is the maximum)
+        from?: number;
+        to?: number;
     };
     amount?: number; // default 1
+};
+
+export type Error = {
+    errorMessage: string;
 };
