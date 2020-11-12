@@ -4,7 +4,7 @@ JavaScript wrapper for the [JokeAPI](https://sv443.net/jokeapi/v2/).
 
 **Note** It's still under development. So I don't recommend to use this wrapper in a _serious_ projects.
 
-If you really want to use this library in your project. Go ahead and use it. But there may be some bugs and there are no documentation available at the moment.
+If you really want to use this library in your project. Go ahead and use it. But there may be some bugs and **there are no documentation available at the moment**.
 
 ## Usage
 
@@ -44,11 +44,11 @@ JokeApi.getJokes({
 
 This project needs so much improvements. So don't mind to change the anything.
 
-1. [Click here](https://github.com/sahithyandev/sv433-joke-api-js-wrapper/fork) to fork this repo.
+1. [Click here](https://github.com/sahithyandev/sv433-joke-api-js-wrapper/fork) to fork this repository.
 2. Clone it to your machine.
 3. Run `npm install` in the folder.
 4. Make the changes you want.  
-   Currently there are no tests defined, to test your code. I hope they will be added in future. Until then, you have to be careful.
+   Currently there are no tests defined, to test your code. I hope they will be added in future. Until then, you have to be careful. You have to test it manually.
 5. Push your changes to the repo under your account.
 6. Pull a request.
 

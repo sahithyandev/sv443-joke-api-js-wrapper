@@ -8,11 +8,25 @@ export type Category =
 
 export type Flag = "nsfw" | "religious" | "political" | "racist" | "sexist";
 
+export type ResponseFormat = "json" | "xml" | "yaml" | "plain"
+
+export type JokeType = "single" | "twopart";
+
+export type Error = {
+    message: string;
+    description: string
+};
+
+export enum ErrorMessages {
+    INVALID_AMOUNT = "`amount` value is invalid",
+    INVALID_ID_RANGE =  "`idRange` object is invalid"
+}
+
 // for validation
 export type strictRequestOptions = {
     categories: Category[] | "Any";
-    responseFormat: "json" | "xml" | "yaml" | "plain";
-    jokeType: "single" | "twopart" | "any";
+    responseFormat: ResponseFormat;
+    jokeType: "any" | JokeType;
     searchString: string;
     language: "cs" | "de" | "en" | "es";
     flags: "" | Flag[];
@@ -28,8 +42,8 @@ export type strictRequestOptions = {
 // undefined values will be set to the default values
 export type requestOptions = {
     categories?: Category[] | "Any"; // default 'Any'
-    responseFormat?: "json" | "xml" | "yaml" | "txt"; // default 'json'
-    jokeType?: "single" | "twopart" | "any"; // default 'any'
+    responseFormat?: ResponseFormat; // default 'json'
+    jokeType?: "any" | JokeType; // default 'any'
     searchString?: string;
     language?: "cs" | "de" | "en" | "es"; // default 'en'
     flags?: "" | Flag[]; // default ''
@@ -38,8 +52,14 @@ export type requestOptions = {
         to?: number;
     };
     amount?: number; // default 1
-};
+}
 
-export type Error = {
-    errorMessage: string;
+export type JokeAPIParams = {
+    amount?: number,
+    lang?: string,
+    format?: ResponseFormat,
+    idRange?: string
+    contains?: string,
+    type?: JokeType,
+    blackListFlags?: string
 };

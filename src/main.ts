@@ -1,14 +1,19 @@
-import { requestOptions, strictRequestOptions, Error } from "./types";
+import { requestOptions, strictRequestOptions, Error, ErrorMessages, JokeAPIParams } from "./types";
 import { capitalize } from "./utils";
-const fetch = require("node-fetch");
+import { API_HOME } from './values';
 
-export const API_HOME = "https://sv443.net/jokeapi/v2/";
+const fetch = require("node-fetch");
 
 function validateReqOptions(options: strictRequestOptions): Error | null {
     const rules: { [key: string]: Error } = {
         "options.amount < 1": {
-            errorMessage: "`amount` can't be less than 1",
+            message: ErrorMessages.INVALID_AMOUNT,
+            description: "`amount` can't be less than 1",
         },
+        "!Number.isSafeInteger(options.amount)": {
+            message: ErrorMessages.INVALID_AMOUNT,
+            description: "`amount` must be an integer"
+        }
     };
 
     for (let rule of Object.keys(rules)) {
@@ -19,20 +24,18 @@ function validateReqOptions(options: strictRequestOptions): Error | null {
     if (options.idRange?.from && options.idRange?.to) {
         if (Math.min(options.idRange.from, options.idRange.to) < 0) {
             return {
-                errorMessage: "`idRange` values must be a non-negative number",
+                message: ErrorMessages.INVALID_ID_RANGE,
+                description: "`idRange` values must be a non-negative number",
             };
         }
         if (options.idRange.from > options.idRange.to) {
             return {
-                errorMessage:
+                message: ErrorMessages.INVALID_ID_RANGE,
+                description:
                     "in `idRange`, `from` value must be smaller `to` value",
             };
         }
     }
-    // @disabled because MAX_ID_NUMBER is not a constant
-    // if (options.idRange.to > MAX_ID_NUMBER) {
-    //     throw `in 'idRange', 'to' value can't be higher than ${MAX_ID_NUMBER}`;
-    // }
 
     return null;
 }
@@ -44,26 +47,16 @@ export function getJokes(options?: requestOptions): Promise<Response> | null {
             "Options for getJokes() is not defined. The default options will be used"
         );
     }
+
     if (options.categories === undefined || options.categories.length == 0)
         options.categories = "Any";
     if (options.language === undefined) options.language = "en";
-    if (options.jokeType === undefined) options.jokeType = "any";
+    if (options.jokeType === undefined) options.jokeType = 'any';
     if (options.responseFormat === undefined) options.responseFormat = "json";
     if (options.amount === undefined) options.amount = 1;
     if (options.flags === undefined || options.flags.length == 0)
         options.flags = "";
-
-    // @disabled MAX_ID_NUMBER is not constant
-    // if (options.idRange === undefined) {
-    //     options.idRange = {
-    //         from: 0,
-    //         to: MAX_ID_NUMBER,
-    //     };
-    // } else {
-    //     if (options.idRange.from === undefined) options.idRange.from = 0;
-    //     if (options.idRange.to === undefined)
-    //         options.idRange.to = MAX_ID_NUMBER;
-    // }
+    if (options.searchString === '') options.searchString = undefined
 
     let apiReqUrl = API_HOME + "joke/";
     apiReqUrl +=
@@ -71,29 +64,31 @@ export function getJokes(options?: requestOptions): Promise<Response> | null {
             ? capitalize(options.categories)
             : options.categories.map((v) => capitalize(v as string)).join(",");
 
-    const params = {
+    // don't change the property names
+    // these are required by the jokeAPI
+    const params: JokeAPIParams = {
         amount: options.amount,
         lang: options.language,
         format: options.responseFormat,
         idRange:
             options.idRange?.from && options.idRange?.to
                 ? `${options.idRange.from}-${options.idRange.to}`
-                : null,
-        contains: [undefined, ""].includes(options.searchString)
-            ? null
-            : options.searchString,
-        type: options.jokeType === "any" ? null : options.jokeType,
+                : undefined,
+        contains: options.searchString,
+        type: options.jokeType === "any" ? undefined : options.jokeType,
         blackListFlags:
-            typeof options.flags === "string" ? null : options.flags.join(","),
+            typeof options.flags === "string" ? undefined : options.flags.join(","),
     };
+
     apiReqUrl +=
         "?" +
         Object.entries(params)
-            .filter(([_, v]) => v !== null)
-            .map(([key, v]) => `${key}-${v}`)
+            .filter(([_, v]) => v !== undefined)
+            .map(([key, v]) => `${key}=${v}`)
             .join("&");
 
     // do validation
+    // TK why not validate the params instead of options?
     let validationError = validateReqOptions(<strictRequestOptions>options);
     if (validationError) {
         throw validationError;
@@ -102,20 +97,3 @@ export function getJokes(options?: requestOptions): Promise<Response> | null {
         return fetch(apiReqUrl);
     }
 }
-
-// TK make them dynamic
-export const AVAILABLE_CATEGORIES = [
-    "Programming",
-    "Miscellaneous",
-    "Dark",
-    "Pun",
-    "Spooky",
-    "Christmas",
-];
-export const AVAILABLE_FLAGS = [
-    "nsfw",
-    "religious",
-    "political",
-    "racist",
-    "sexist",
-];
