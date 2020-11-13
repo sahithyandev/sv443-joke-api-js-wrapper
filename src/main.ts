@@ -1,11 +1,12 @@
 import { requestOptions, strictRequestOptions, Error, ErrorMessages, JokeAPIParams } from "./types";
 import { capitalize } from "./utils";
 import { API_HOME } from './values';
+import { StrObject } from './../global/types'
 
 const fetch = require("node-fetch");
 
 function validateReqOptions(options: strictRequestOptions): Error | null {
-    const rules: { [key: string]: Error } = {
+    const rules: StrObject<Error> = {
         "options.amount < 1": {
             message: ErrorMessages.INVALID_AMOUNT,
             description: "`amount` can't be less than 1",
@@ -64,8 +65,6 @@ export function getJokes(options?: requestOptions): Promise<Response> | null {
             ? capitalize(options.categories)
             : options.categories.map((v) => capitalize(v as string)).join(",");
 
-    // don't change the property names
-    // these are required by the jokeAPI
     const params: JokeAPIParams = {
         amount: options.amount,
         lang: options.language,
