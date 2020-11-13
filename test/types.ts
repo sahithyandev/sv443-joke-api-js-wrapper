@@ -1,6 +1,6 @@
 // types needed by the tests
 
 export type FunctionTestData = {
-    input: string[],
-    output: string
-}
+	input: string[];
+	output: string;
+};

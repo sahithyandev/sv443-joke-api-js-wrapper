@@ -53,10 +53,14 @@ This project needs so much improvements. So don't mind to change the anything.
    Even if the tests are completely written, you should run `npm test` before pushing it.
 6. Pull a request.
 
-I recommend using **Visual Studio Code** with **ESLint** extension as the development environment.
+I recommend using **Visual Studio Code** with the extensions mentioned below as the development environment.
+
+- ESLint
+- Prettier
+- EditorConfig
 
 ## Contributing
 
-Pull requests are always welcome.
-Be friendly.
+Pull requests are always welcome.  
+Be friendly.  
 And when making a pull request, make sure you didn't break anything.

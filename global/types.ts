@@ -4,13 +4,12 @@
  * A wrapper for "Object with string keys" type
  */
 export type StrObject<ValueType> = {
-    [key: string]: ValueType;
+	[key: string]: ValueType;
 };
-
 
 /**
  * A wrapper for "Object with number keys" type
  */
 export type NumberObject<ValueType> = {
-    [key: number]: ValueType;
+	[key: number]: ValueType;
 };

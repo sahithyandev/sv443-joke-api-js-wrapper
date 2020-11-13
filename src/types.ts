@@ -19,7 +19,7 @@ export type Error = {
 
 export enum ErrorMessages {
 	INVALID_AMOUNT = "`amount` value is invalid",
-	INVALID_ID_RANGE = "`idRange` object is invalid",
+	INVALID_ID_RANGE = "`idRange` object is invalid"
 }
 
 // for validation

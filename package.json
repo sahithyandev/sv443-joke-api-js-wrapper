@@ -1,47 +1,51 @@
 {
-    "name": "sv443-joke-api",
-    "version": "0.0.5",
-    "description": "JavaScript wrapper for Sv443's Joke API",
-    "author": {
-        "name": "Sahithyan",
-        "email": "sahithyan2701@gmail.com"
-    },
-    "types": "dist/index.d.ts",
-    "main": "dist/index",
-    "scripts": {
-        "type-check": "tsc --noEmit",
-        "type-check:watch": "npm run type-check -- --watch",
-        "watch": "webpack --watch",
-        "build": "npm run build:types && npm run build:js",
-        "build:types": "tsc --emitDeclarationOnly",
-        "build:js": "webpack",
-        "test": "jest",
-        "pre": "tsc && npm version patch"
-    },
-    "keywords": [
-        "api",
-        "joke-api"
-    ],
-    "license": "ISC",
-    "devDependencies": {
-        "@babel/core": "^7.12.3",
-        "@babel/preset-env": "^7.12.1",
-        "@babel/preset-typescript": "^7.12.1",
-        "@types/babel-types": "^7.0.9",
-        "@types/jest": "^26.0.15",
-        "@types/node": "^14.14.6",
-        "babel-jest": "^26.6.3",
-        "babel-loader": "^8.2.1",
-        "jest": "^26.6.3",
-        "ts-loader": "^8.0.11",
-        "ts-node": "^9.0.0",
-        "tslint": "^6.1.3",
-        "tslint-config-prettier": "^1.18.0",
-        "typescript": "^4.0.5",
-        "webpack": "^5.4.0",
-        "webpack-cli": "^4.2.0"
-    },
-    "dependencies": {
-        "node-fetch": "^2.6.1"
-    }
+	"name": "sv443-joke-api",
+	"version": "0.0.5",
+	"description": "JavaScript wrapper for Sv443's Joke API",
+	"author": {
+		"name": "Sahithyan",
+		"email": "sahithyan2701@gmail.com"
+	},
+	"types": "dist/index.d.ts",
+	"main": "dist/index",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/sahithyandev/sv433-joke-api-js-wrapper.git"
+	},
+	"scripts": {
+		"type-check": "tsc --noEmit",
+		"type-check:watch": "npm run type-check -- --watch",
+		"watch": "webpack --watch",
+		"build": "npm run build:types && npm run build:js",
+		"build:types": "tsc --emitDeclarationOnly",
+		"build:js": "webpack",
+		"test": "jest",
+		"pre": "tsc && npm version patch"
+	},
+	"keywords": [
+		"api",
+		"joke-api"
+	],
+	"license": "ISC",
+	"devDependencies": {
+		"@babel/core": "^7.12.3",
+		"@babel/preset-env": "^7.12.1",
+		"@babel/preset-typescript": "^7.12.1",
+		"@types/babel-types": "^7.0.9",
+		"@types/jest": "^26.0.15",
+		"@types/node": "^14.14.6",
+		"babel-jest": "^26.6.3",
+		"babel-loader": "^8.2.1",
+		"jest": "^26.6.3",
+		"ts-loader": "^8.0.11",
+		"ts-node": "^9.0.0",
+		"tslint": "^6.1.3",
+		"tslint-config-prettier": "^1.18.0",
+		"typescript": "^4.0.5",
+		"webpack": "^5.4.0",
+		"webpack-cli": "^4.2.0"
+	},
+	"dependencies": {
+		"node-fetch": "^2.6.1"
+	}
 }

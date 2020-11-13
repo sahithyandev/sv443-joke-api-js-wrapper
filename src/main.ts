@@ -3,8 +3,9 @@ import {
 	strictRequestOptions,
 	Error,
 	ErrorMessages,
-	JokeAPIParams,
+	JokeAPIParams
 } from "./types";
+
 import { capitalize } from "./utils";
 import { API_HOME, DEFAULT_OPTIONS } from "./values";
 import { StrObject } from "./../global/types";
@@ -15,12 +16,12 @@ function validateReqOptions(options: strictRequestOptions): Error | null {
 	const rules: StrObject<Error> = {
 		"options.amount < 1": {
 			message: ErrorMessages.INVALID_AMOUNT,
-			description: "`amount` can't be less than 1",
+			description: "`amount` can't be less than 1"
 		},
 		"!Number.isSafeInteger(options.amount)": {
 			message: ErrorMessages.INVALID_AMOUNT,
-			description: "`amount` must be an integer",
-		},
+			description: "`amount` must be an integer"
+		}
 	};
 
 	for (let rule of Object.keys(rules)) {
@@ -32,13 +33,13 @@ function validateReqOptions(options: strictRequestOptions): Error | null {
 		if (Math.min(options.idRange.from, options.idRange.to) < 0) {
 			return {
 				message: ErrorMessages.INVALID_ID_RANGE,
-				description: "`idRange` values must be a non-negative number",
+				description: "`idRange` values must be a non-negative number"
 			};
 		}
 		if (options.idRange.from > options.idRange.to) {
 			return {
 				message: ErrorMessages.INVALID_ID_RANGE,
-				description: "in `idRange`, `from` value must be smaller `to` value",
+				description: "in `idRange`, `from` value must be smaller `to` value"
 			};
 		}
 	}
@@ -56,7 +57,7 @@ export function getJokes(
 		flags: options.flags || [],
 		categories: options.categories || DEFAULT_OPTIONS.categories,
 		jokeType: options.jokeType || DEFAULT_OPTIONS.jokeType,
-		searchString: options.searchString || "",
+		searchString: options.searchString || ""
 	};
 
 	let apiReqUrl = API_HOME + "joke/";
@@ -77,7 +78,7 @@ export function getJokes(
 				: undefined,
 		contains: _options.searchString,
 		type: options.jokeType !== "any" ? options.jokeType : undefined,
-		blackListFlags: _options.flags.join(","),
+		blackListFlags: _options.flags.join(",")
 	};
 
 	apiReqUrl +=
