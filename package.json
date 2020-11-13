@@ -22,9 +22,6 @@
         "api",
         "joke-api"
     ],
-    "bin": {
-        "joke-api": "./cli/index.js"
-    },
     "license": "ISC",
     "devDependencies": {
         "@babel/core": "^7.12.3",
