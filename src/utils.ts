@@ -3,6 +3,6 @@
 // They should be standalone functions
 
 export const capitalize = (str: string): string => {
-	if (["", null, undefined].includes(str)) return str;
-	return str[0].toUpperCase() + str.slice(1).toLowerCase();
-};
+	if (["", null, undefined].includes(str)) return str
+	return str[0].toUpperCase() + str.slice(1).toLowerCase()
+}

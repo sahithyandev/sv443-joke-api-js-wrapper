@@ -1,10 +1,10 @@
-import { requestOptions, strictRequestOptions, Error, ErrorMessages, JokeAPIParams } from "./types";
+import { requestOptions, strictRequestOptions, Error, ErrorMessages, JokeAPIParams } from "./types"
 
-import { API_HOME, DEFAULT_OPTIONS } from "./values";
-import { StrObject } from "./../global/types";
-import { capitalize } from "./utils";
+import { API_HOME, DEFAULT_OPTIONS } from "./values"
+import { StrObject } from "./../global/types"
+import { capitalize } from "./utils"
 
-const fetch = require("node-fetch");
+const fetch = require("node-fetch")
 
 function validateReqOptions(options: strictRequestOptions): Error | null {
 	const rules: StrObject<Error> = {
@@ -16,10 +16,10 @@ function validateReqOptions(options: strictRequestOptions): Error | null {
 			message: ErrorMessages.INVALID_AMOUNT,
 			description: "`amount` must be an integer"
 		}
-	};
+	}
 
 	for (let rule of Object.keys(rules)) {
-		if (eval(rule)) return rules[rule];
+		if (eval(rule)) return rules[rule]
 	}
 
 	// TK Check these with fewer lines of code
@@ -28,17 +28,17 @@ function validateReqOptions(options: strictRequestOptions): Error | null {
 			return {
 				message: ErrorMessages.INVALID_ID_RANGE,
 				description: "`idRange` values must be a non-negative number"
-			};
+			}
 		}
 		if (options.idRange.from > options.idRange.to) {
 			return {
 				message: ErrorMessages.INVALID_ID_RANGE,
 				description: "in `idRange`, `from` value must be smaller `to` value"
-			};
+			}
 		}
 	}
 
-	return null;
+	return null
 }
 
 export function getJokeApiParameters(options: strictRequestOptions): JokeAPIParams {
@@ -53,7 +53,7 @@ export function getJokeApiParameters(options: strictRequestOptions): JokeAPIPara
 		contains: options.searchString,
 		type: options.jokeType !== "any" ? options.jokeType : undefined,
 		blackListFlags: options.flags.join(",")
-	};
+	}
 }
 
 export function getJokes(options: requestOptions = {}): Promise<Response> | null {
@@ -65,17 +65,18 @@ export function getJokes(options: requestOptions = {}): Promise<Response> | null
 		categories: options.categories || DEFAULT_OPTIONS.categories,
 		jokeType: options.jokeType || DEFAULT_OPTIONS.jokeType,
 		searchString: options.searchString || ""
+	}
 	};
 
-	let apiReqUrl = API_HOME + "joke/";
+	let apiReqUrl = API_HOME + "joke/"
 	let mainRouteName =
 		_options.categories !== "Any"
 			? _options.categories.map((v) => capitalize(v as string)).join(",")
-			: "Any";
+			: "Any"
 
-	apiReqUrl += mainRouteName;
+	apiReqUrl += mainRouteName
 
-	const params: JokeAPIParams = getJokeApiParameters(_options);
+	const params: JokeAPIParams = getJokeApiParameters(_options)
 
 	apiReqUrl +=
 		"?" +
@@ -83,15 +84,15 @@ export function getJokes(options: requestOptions = {}): Promise<Response> | null
 			// @ts-ignore
 			.filter(([_, v]) => ![undefined, ""].includes(v))
 			.map(([key, v]) => `${key}=${v}`)
-			.join("&");
+			.join("&")
 
 	// do validation
 	// TK why not validate the params instead of options?
-	let validationError = validateReqOptions(<strictRequestOptions>options);
+	let validationError = validateReqOptions(<strictRequestOptions>options)
 	if (validationError) {
-		throw validationError;
+		throw validationError
 	} else {
 		// query it
-		return fetch(apiReqUrl);
+		return fetch(apiReqUrl)
 	}
 }
