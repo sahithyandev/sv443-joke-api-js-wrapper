@@ -1,5 +1,5 @@
-// export everything that needed outside this library
+// export everything that needed outside of the library
 
-export * from './main';
-export * from './types'
-export * from './values';
+export { getJokes } from "./main";
+export * from "./types";
+export * from "./values";

@@ -16,16 +16,15 @@ for (let functionName in FUNCTIONS) {
 	let f: Function = utilFunctions[functionName];
 	let functionTestData = FUNCTIONS[functionName];
 
-	if (f) {
+	if (!f) throw `Function with name ${functionName}, is not found inside src/utils.ts`;
+
+	describe(`Testing ${f}`, () => {
 		for (let testData of functionTestData) {
 			test(`${functionName}(${testData.input}) should be ${testData.output}`, () => {
 				let output = f.call(null, ...testData.input);
+
 				expect(output).toBe(testData.output);
 			});
 		}
-	} else {
-		console.error(
-			`Function with name ${functionName}, is not found inside src/utils.ts`
-		);
-	}
+	});
 }

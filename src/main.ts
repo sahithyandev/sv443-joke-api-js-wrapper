@@ -1,14 +1,8 @@
-import {
-	requestOptions,
-	strictRequestOptions,
-	Error,
-	ErrorMessages,
-	JokeAPIParams
-} from "./types";
+import { requestOptions, strictRequestOptions, Error, ErrorMessages, JokeAPIParams } from "./types";
 
-import { capitalize } from "./utils";
 import { API_HOME, DEFAULT_OPTIONS } from "./values";
 import { StrObject } from "./../global/types";
+import { capitalize } from "./utils";
 
 const fetch = require("node-fetch");
 
@@ -47,9 +41,22 @@ function validateReqOptions(options: strictRequestOptions): Error | null {
 	return null;
 }
 
-export function getJokes(
-	options: requestOptions = {}
-): Promise<Response> | null {
+export function getJokeApiParameters(options: strictRequestOptions): JokeAPIParams {
+	return {
+		amount: options.amount,
+		lang: options.language,
+		format: options.responseFormat,
+		idRange:
+			options.idRange?.from && options.idRange?.to
+				? `${options.idRange.from}-${options.idRange.to}`
+				: undefined,
+		contains: options.searchString,
+		type: options.jokeType !== "any" ? options.jokeType : undefined,
+		blackListFlags: options.flags.join(",")
+	};
+}
+
+export function getJokes(options: requestOptions = {}): Promise<Response> | null {
 	let _options: strictRequestOptions = {
 		amount: options.amount || DEFAULT_OPTIONS.amount,
 		language: options.language || DEFAULT_OPTIONS.language,
@@ -68,18 +75,7 @@ export function getJokes(
 
 	apiReqUrl += mainRouteName;
 
-	const params: JokeAPIParams = {
-		amount: _options.amount,
-		lang: _options.language,
-		format: _options.responseFormat,
-		idRange:
-			options.idRange?.from && options.idRange?.to
-				? `${options.idRange.from}-${options.idRange.to}`
-				: undefined,
-		contains: _options.searchString,
-		type: options.jokeType !== "any" ? options.jokeType : undefined,
-		blackListFlags: _options.flags.join(",")
-	};
+	const params: JokeAPIParams = getJokeApiParameters(_options);
 
 	apiReqUrl +=
 		"?" +

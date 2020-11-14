@@ -1,10 +1,4 @@
-export type Category =
-	| "Programming"
-	| "Miscellaneous"
-	| "Dark"
-	| "Pun"
-	| "Spooky"
-	| "Christmas";
+export type Category = "Programming" | "Miscellaneous" | "Dark" | "Pun" | "Spooky" | "Christmas";
 
 export type Flag = "nsfw" | "religious" | "political" | "racist" | "sexist";
 

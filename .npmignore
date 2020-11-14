@@ -2,3 +2,5 @@ node_modules
 .github
 .vscode
 cli
+test
+global
