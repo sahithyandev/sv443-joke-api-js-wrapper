@@ -46,15 +46,20 @@ function validateReqOptions(options: strictRequestOptions): Error | null {
 	return null
 }
 
-export function getJokeApiParameters(options: strictRequestOptions): JokeAPIParams {
+	let idRange = undefined
+	if (options.idRange) {
+		if (typeof options.idRange === "number") {
+			idRange = options.idRange
+		} else {
+			idRange = `${options.idRange.from}-${options.idRange.to}`
+		}
+	}
+
 	return {
 		amount: options.amount,
 		lang: options.language,
 		format: options.responseFormat,
-		idRange:
-			options.idRange?.from && options.idRange?.to
-				? `${options.idRange.from}-${options.idRange.to}`
-				: undefined,
+		idRange: idRange,
 		contains: options.searchString,
 		type: options.jokeType !== "any" ? options.jokeType : undefined,
 		blackListFlags: options.flags.join(",")
@@ -71,7 +76,14 @@ export function getJokes(options: requestOptions = {}): Promise<Response> | null
 		jokeType: options.jokeType || DEFAULT_OPTIONS.jokeType,
 		searchString: options.searchString || ""
 	}
-	};
+	// if idRange is defined as a number,
+	// set it as from and to values on _options
+	if (options.idRange && typeof options.idRange === "number") {
+		_options.idRange = {
+			from: options.idRange,
+			to: options.idRange
+		}
+	}
 
 	let apiReqUrl = API_HOME + "joke/"
 	let mainRouteName =

@@ -6,6 +6,11 @@ export type ResponseFormat = "json" | "xml" | "yaml" | "plain"
 
 export type JokeType = "single" | "twopart"
 
+export interface IdRangeObject {
+	from: number
+	to: number
+}
+
 export type Error = {
 	message: string
 	description: string
@@ -13,7 +18,8 @@ export type Error = {
 
 export enum ErrorMessages {
 	INVALID_AMOUNT = "`amount` value is invalid",
-	INVALID_ID_RANGE = "`idRange` object is invalid"
+	INVALID_ID_RANGE = "`idRange` object is invalid",
+	INVALID_OPTIONS = "options object is invalid"
 }
 
 // for validation
@@ -21,10 +27,7 @@ export type strictRequestOptions = {
 	amount: number
 	categories: Category[] | "Any"
 	flags: Flag[]
-	idRange?: {
-		from?: number
-		to?: number
-	}
+	idRange?: IdRangeObject
 	jokeType: "any" | JokeType
 	language: "cs" | "de" | "en" | "es"
 	responseFormat: ResponseFormat
@@ -38,10 +41,7 @@ export type requestOptions = {
 	amount?: number // default 1
 	categories?: Category[] | "Any" // default 'Any'
 	flags?: Flag[] // default []
-	idRange?: {
-		from?: number
-		to?: number
-	}
+	idRange?: IdRangeObject | number
 	jokeType?: "any" | JokeType // default 'any'
 	language?: "cs" | "de" | "en" | "es" // default 'en'
 	responseFormat?: ResponseFormat // default 'json'
@@ -52,7 +52,7 @@ export type JokeAPIParams = {
 	amount: number
 	lang: string
 	format: ResponseFormat
-	idRange?: string
+	idRange?: string | number
 	contains?: string
 	type?: JokeType
 	blackListFlags: string
