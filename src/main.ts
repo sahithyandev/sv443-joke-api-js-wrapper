@@ -1,7 +1,13 @@
-import { requestOptions, strictRequestOptions, Error, ErrorMessages, JokeAPIParams } from "./types"
+import {
+	requestOptions,
+	strictRequestOptions,
+	Error,
+	ErrorMessages,
+	JokeAPIParams,
+	StrObject
+} from "./types"
 
 import { API_HOME, DEFAULT_OPTIONS } from "./values"
-import { StrObject } from "./../global/types"
 import { capitalize } from "./utils"
 import fetch from "node-fetch"
 
@@ -73,12 +79,10 @@ export function getJokes(options: requestOptions = {}): Promise<Response> | null
 			? _options.categories.map((v) => capitalize(v as string)).join(",")
 			: "Any"
 
-	apiReqUrl += mainRouteName
-
 	const params: JokeAPIParams = getJokeApiParameters(_options)
 
 	apiReqUrl +=
-		"?" +
+		`${mainRouteName}?` +
 		Object.entries(params)
 			// @ts-ignore
 			.filter(([_, v]) => ![undefined, ""].includes(v))
