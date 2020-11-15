@@ -1,13 +1,9 @@
 // constant values
-// needed by the library
-// or outside the library
+// needed by this package
+// or the users of this package
 
-import { strictRequestOptions } from "./types";
+export const API_HOME = "https://sv443.net/jokeapi/v2/"
 
-export const API_HOME = "https://sv443.net/jokeapi/v2/";
-
-// @important type of this variable is strictRequestOptions
-// it is left out intentionally
 export enum DEFAULT_OPTIONS {
 	amount = 1,
 	language = "en",
@@ -25,11 +21,5 @@ export const AVAILABLE_CATEGORIES = [
 	"Pun",
 	"Spooky",
 	"Christmas"
-];
-export const AVAILABLE_FLAGS = [
-	"nsfw",
-	"religious",
-	"political",
-	"racist",
-	"sexist"
-];
+]
+export const AVAILABLE_FLAGS = ["nsfw", "religious", "political", "racist", "sexist"]

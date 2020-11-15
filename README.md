@@ -22,7 +22,7 @@ yarn add sv443-joke-api
 const JokeApi = require("joke-api");
 
 // This snippet shows the available values of those functions
-// If not defined, will be set to the default alue
+// If not defined, will be set to the default value
 // if default is not shown below, it will be left out while making a request
 JokeApi.getJokes({
     categories?: Category[] | "Any"; // default 'Any'

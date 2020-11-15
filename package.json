@@ -6,7 +6,7 @@
 		"name": "Sahithyan",
 		"email": "sahithyan2701@gmail.com"
 	},
-	"types": "dist/index.d.ts",
+	"types": "dist/types/index.d.ts",
 	"main": "dist/index",
 	"repository": {
 		"type": "git",
@@ -46,6 +46,7 @@
 		"webpack-cli": "^4.2.0"
 	},
 	"dependencies": {
+		"@types/node-fetch": "^2.5.7",
 		"node-fetch": "^2.6.1"
 	}
 }
