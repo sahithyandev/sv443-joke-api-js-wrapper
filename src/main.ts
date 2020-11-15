@@ -46,6 +46,7 @@ function validateReqOptions(options: strictRequestOptions): Error | null {
 	return null
 }
 
+function getJokeApiParameters(options: strictRequestOptions): JokeAPIParams {
 	let idRange = undefined
 	if (options.idRange) {
 		if (typeof options.idRange === "number") {
@@ -76,6 +77,9 @@ export function getJokes(options: requestOptions = {}): Promise<Response> | null
 		jokeType: options.jokeType || DEFAULT_OPTIONS.jokeType,
 		searchString: options.searchString || ""
 	}
+	if (_options.amount > 10) {
+		console.warn("provided amount value is higher than 10. JokeAPI will only return 10 jokes")
+	}
 	// if idRange is defined as a number,
 	// set it as from and to values on _options
 	if (options.idRange && typeof options.idRange === "number") {
@@ -103,7 +107,7 @@ export function getJokes(options: requestOptions = {}): Promise<Response> | null
 
 	// do validation
 	// TK why not validate the params instead of options?
-	let validationError = validateReqOptions(<strictRequestOptions>options)
+	let validationError = validateReqOptions(_options)
 	if (validationError) {
 		throw validationError
 	} else {
