@@ -14,6 +14,7 @@ module.exports = {
 	resolve: {
 		extensions: ['.ts']
 	},
+	target: 'node',
 	output: {
 		library: {
 			name: 'JokeAPI',

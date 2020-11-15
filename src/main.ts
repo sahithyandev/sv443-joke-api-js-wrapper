@@ -3,8 +3,7 @@ import { requestOptions, strictRequestOptions, Error, ErrorMessages, JokeAPIPara
 import { API_HOME, DEFAULT_OPTIONS } from "./values"
 import { StrObject } from "./../global/types"
 import { capitalize } from "./utils"
-
-const fetch = require("node-fetch")
+import fetch from "node-fetch"
 
 function validateReqOptions(options: strictRequestOptions): Error | null {
 	const rules: StrObject<Error> = {
@@ -92,7 +91,7 @@ export function getJokes(options: requestOptions = {}): Promise<Response> | null
 	if (validationError) {
 		throw validationError
 	} else {
-		// query it
+		// @ts-ignore
 		return fetch(apiReqUrl)
 	}
 }
