@@ -1,7 +1,7 @@
 import { Response } from "node-fetch"
 import {
-	requestOptions,
-	strictRequestOptions,
+	RequestOptions,
+	StrictRequestOptions,
 	Error,
 	ErrorMessages,
 	JokeAPIParams,
@@ -12,7 +12,7 @@ import { DEFAULT_OPTIONS } from "../values"
 import { capitalize } from "../utils"
 import { makeRequestToApi } from "./helper"
 
-function validateReqOptions(options: strictRequestOptions): Error | null {
+function validateReqOptions(options: StrictRequestOptions): Error | null {
 	const rules: StrObject<Error> = {
 		"options.amount < 1": {
 			message: ErrorMessages.INVALID_AMOUNT,
@@ -47,7 +47,7 @@ function validateReqOptions(options: strictRequestOptions): Error | null {
 	return null
 }
 
-function getJokeApiParameters(options: strictRequestOptions): JokeAPIParams {
+function getJokeApiParameters(options: StrictRequestOptions): JokeAPIParams {
 	let idRange = undefined
 	if (options.idRange) {
 		if (typeof options.idRange === "number") {
@@ -68,8 +68,8 @@ function getJokeApiParameters(options: strictRequestOptions): JokeAPIParams {
 	}
 }
 
-export function getJokes(options: requestOptions = {}): Promise<Response> {
-	let _options: strictRequestOptions = {
+export function getJokes(options: RequestOptions = {}): Promise<Response> {
+	let _options: StrictRequestOptions = {
 		amount: options.amount || DEFAULT_OPTIONS.amount,
 		language: options.language || DEFAULT_OPTIONS.language,
 		responseFormat: options.responseFormat || DEFAULT_OPTIONS.responseFormat,

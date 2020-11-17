@@ -10,7 +10,10 @@ This changelog is not showing the logs for v0.0.5 and previous versions.
 - Support for `/formats` endpoint added. (other endpoints will be added shortly)
 - Now, `idRange` can be passed as just a number to `getJokes`. If passed like that, joke with that id will be returned.
 - Changes in types
-  - `[IMP]` Type of `requestOptions.flag` changed from `"" | Flag[]` to `Flag[]`.
+  - `[IMP]` Types renamed:
+    - `requestOptions` --> `RequestOptions`
+    - `strictRequestOptions` --> `StrictRequestOptions`
+  - `[IMP]` Type of `RequestOptions.flag` changed from `"" | Flag[]` to `Flag[]`.
   - New types added:
     - `ResponseFormat`
     - `JokeType`

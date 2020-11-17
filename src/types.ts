@@ -23,7 +23,7 @@ export enum ErrorMessages {
 }
 
 // for validation
-export type strictRequestOptions = {
+export type StrictRequestOptions = {
 	amount: number
 	categories: Category[] | "Any"
 	flags: Flag[]
@@ -37,7 +37,7 @@ export type strictRequestOptions = {
 // to get the input from the user
 // all values are optional
 // undefined values will be set to the default values
-export type requestOptions = {
+export type RequestOptions = {
 	amount?: number // default 1
 	categories?: Category[] | "Any" // default 'Any'
 	flags?: Flag[] // default []
