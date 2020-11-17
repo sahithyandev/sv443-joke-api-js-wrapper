@@ -6,8 +6,8 @@
 		"name": "Sahithyan",
 		"email": "sahithyan2701@gmail.com"
 	},
-	"types": "dist/types/index.d.ts",
-	"main": "dist/index",
+	"types": "dist-node/types/index.d.ts",
+	"main": "dist-node/index",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/sahithyandev/sv433-joke-api-js-wrapper.git"
@@ -16,9 +16,13 @@
 		"type-check": "tsc --noEmit",
 		"type-check:watch": "npm run type-check -- --watch",
 		"watch": "webpack --watch",
-		"build": "npm run build:types && npm run build:js",
-		"build:types": "tsc --emitDeclarationOnly",
-		"build:js": "webpack",
+		"build": "npm run build:node && npm run build:browser",
+		"build:node": "npm run build:node:types && npm run build:node:js",
+		"build:node:types": "tsc --emitDeclarationOnly",
+		"build:node:js": "webpack --env TARGET=node",
+		"build:browser": "npm run build:browser:types && npm run build:browser:js",
+		"build:browser:types": "tsc --emitDeclarationOnly -p tsconfig-web.json",
+		"build:browser:js": "webpack --env TARGET=web",
 		"test": "jest",
 		"pre": "tsc && npm version patch"
 	},

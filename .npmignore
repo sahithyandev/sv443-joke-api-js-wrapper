@@ -3,4 +3,4 @@ node_modules
 .vscode
 cli
 test
-global
+dist-web
