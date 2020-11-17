@@ -3,7 +3,7 @@ export type Category = "Programming" | "Miscellaneous" | "Dark" | "Pun" | "Spook
 export type Flag = "nsfw" | "religious" | "political" | "racist" | "sexist"
 
 export type ResponseFormat = "json" | "xml" | "yaml" | "plain"
-
+export type LanguageCode = "cs" | "de" | "en" | "es"
 export type JokeType = "single" | "twopart"
 
 export interface IdRangeObject {
@@ -29,7 +29,7 @@ export type strictRequestOptions = {
 	flags: Flag[]
 	idRange?: IdRangeObject
 	jokeType: "any" | JokeType
-	language: "cs" | "de" | "en" | "es"
+	language: LanguageCode
 	responseFormat: ResponseFormat
 	searchString: string
 }
@@ -43,7 +43,7 @@ export type requestOptions = {
 	flags?: Flag[] // default []
 	idRange?: IdRangeObject | number
 	jokeType?: "any" | JokeType // default 'any'
-	language?: "cs" | "de" | "en" | "es" // default 'en'
+	language?: LanguageCode // default 'en'
 	responseFormat?: ResponseFormat // default 'json'
 	searchString?: string
 }
