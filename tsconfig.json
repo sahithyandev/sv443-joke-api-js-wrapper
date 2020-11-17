@@ -7,7 +7,7 @@
     "esModuleInterop": true,
     "noUnusedLocals": true,
     "noImplicitAny": true,
-    "declarationDir": "dist-node/types",
+    "declarationDir": "dist-types",
     "declaration": true,
     "target": "es2015",
     "module": "es2015",

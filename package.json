@@ -16,13 +16,10 @@
 		"type-check": "tsc --noEmit",
 		"type-check:watch": "npm run type-check -- --watch",
 		"watch": "webpack --watch",
-		"build": "npm run build:node && npm run build:browser",
-		"build:node": "npm run build:node:types && npm run build:node:js",
-		"build:node:types": "tsc --emitDeclarationOnly",
-		"build:node:js": "webpack --env TARGET=node",
-		"build:browser": "npm run build:browser:types && npm run build:browser:js",
-		"build:browser:types": "tsc --emitDeclarationOnly -p tsconfig-web.json",
-		"build:browser:js": "webpack --env TARGET=web",
+		"build:types": "tsc --emitDeclarationOnly",
+		"build": "npm run build:types && npm run build:node && npm run build:browser",
+		"build:node": "webpack --env TARGET=node",
+		"build:browser": "webpack --env TARGET=web",
 		"test": "jest",
 		"pre": "tsc && npm version patch"
 	},
@@ -38,8 +35,10 @@
 		"@types/babel-types": "^7.0.9",
 		"@types/jest": "^26.0.15",
 		"@types/node": "^14.14.6",
+		"@types/node-fetch": "^2.5.7",
 		"babel-jest": "^26.6.3",
 		"babel-loader": "^8.2.1",
+		"copy-webpack-plugin": "^6.3.1",
 		"jest": "^26.6.3",
 		"ts-loader": "^8.0.11",
 		"ts-node": "^9.0.0",
@@ -50,7 +49,6 @@
 		"webpack-cli": "^4.2.0"
 	},
 	"dependencies": {
-		"@types/node-fetch": "^2.5.7",
 		"node-fetch": "^2.6.1"
 	}
 }

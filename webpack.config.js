@@ -1,4 +1,5 @@
 const path = require("path")
+const CopyWebpackPlugin = require("copy-webpack-plugin")
 
 module.exports = (env) => {
 	let target = env.TARGET
@@ -25,6 +26,11 @@ module.exports = (env) => {
 			},
 			filename: "index.js",
 			path: path.join(__dirname, "dist-" + target)
-		}
+		},
+		plugins: [
+			new CopyWebpackPlugin({
+				patterns: [{ from: "dist-types", to: `types` }]
+			})
+		]
 	}
 }
