@@ -7,6 +7,7 @@ This changelog is not showing the logs for v0.0.5 and previous versions.
 
 ## Next Version (v0.0.6)
 
+- Support for `/formats` endpoint added. (other endpoints will be added shortly)
 - Now, `idRange` can be passed as just a number to `getJokes`. If passed like that, joke with that id will be returned.
 - Changes in types
   - `[IMP]` Type of `requestOptions.flag` changed from `"" | Flag[]` to `Flag[]`.
@@ -17,6 +18,7 @@ This changelog is not showing the logs for v0.0.5 and previous versions.
     - `IdRangeObject`
     - `StrObject`
     - `NumberObject`
+- Endpoints are moved into a new directory `src/endpoints` (working towards a better file structure)
 - Removed the cli tool (excluded from the package.json only)
 - Added new dependencies
   - Babel
