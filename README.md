@@ -2,11 +2,33 @@
 
 JavaScript wrapper for the [JokeAPI](https://sv443.net/jokeapi/v2/).
 
-**Note** It's still under development. Use with **caution** (or don't).
+**Note** It's still under development. Use with **caution**.
 
 If you really want to use this library in your project. Go ahead and use it. But there may be some bugs and **there are no documentation available at the moment**.
 
 ## Usage
+
+You can use it in both Browser and Node.
+
+### Browser
+
+1. Add the library.
+
+```html
+<script src="https://unpkg.com/sv443-joke-api@0.0.6/web/input.js"></script>
+```
+
+2. Use it.
+
+```javascript
+JokeAPI.getJokes()
+  .then((res) => res.json())
+  .then((data) => {
+    console.log(data)
+  })
+```
+
+### Node
 
 1. Install using `yarn` or `npm`.
 
@@ -19,12 +41,12 @@ yarn add sv443-joke-api
 2. Use it.
 
 ```typescript
-const JokeApi = require("joke-api");
+const JokeAPI = require("sv443-joke-api");
 
 // This snippet shows the available values of those functions
 // If not defined, will be set to the default value
 // if default is not shown below, it will be left out while making a request
-JokeApi.getJokes({
+JokeAPI.getJokes({
     categories?: Category[] | "Any"; // default 'Any'
     responseFormat?: "json" | "xml" | "yaml" | "txt"; // default 'json'
     jokeType?: "single" | "twopart" | "any"; // default 'any'
@@ -61,6 +83,6 @@ I recommend using **Visual Studio Code** with the extensions mentioned below as 
 
 ## Contributing
 
-Pull requests are always welcome.  
-Be friendly.  
+Pull requests are always welcome.
+Be friendly.
 And when making a pull request, make sure you didn't break anything.

@@ -1,6 +1,6 @@
 {
 	"name": "sv443-joke-api",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"description": "JavaScript wrapper for Sv443's Joke API",
 	"author": {
 		"name": "Sahithyan",
