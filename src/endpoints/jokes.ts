@@ -78,9 +78,6 @@ export function getJokes(options: RequestOptions = {}): Promise<Response> {
 		jokeType: options.jokeType || DEFAULT_OPTIONS.jokeType,
 		searchString: options.searchString || ""
 	}
-	if (_options.amount > 10) {
-		console.warn("provided amount value is higher than 10. JokeAPI will only return 10 jokes")
-	}
 	// if idRange is defined as a number,
 	// set it as from and to values on _options
 	if (options.idRange && typeof options.idRange === "number") {
@@ -90,19 +87,15 @@ export function getJokes(options: RequestOptions = {}): Promise<Response> {
 		}
 	}
 
-	let validationError = validateReqOptions(_options)
-	if (validationError) {
-		throw validationError
+	if (_options.amount > 10) {
+		console.warn("provided amount value is higher than 10. JokeAPI will only return 10 jokes")
 	}
-	// let apiReqUrl = SETTINGS.API_BASE + "/joke/"
+
+	let validationError = validateReqOptions(_options)
+	if (validationError) throw validationError
+
 	let mainRouteName =
-		_options.categories !== "Any"
-			? _options.categories.map((v) => capitalize(v as string)).join(",")
-			: "Any"
+		_options.categories !== "Any" ? _options.categories.map(capitalize).join(",") : "Any"
 
 	return makeRequestToApi(`/joke/${mainRouteName}/`, getJokeApiParameters(_options))
-
-	// do validation
-	// TK why not validate the params instead of options?
-	// return fetch(apiReqUrl)
 }

@@ -1,7 +1,5 @@
 export type Category = "Programming" | "Miscellaneous" | "Dark" | "Pun" | "Spooky" | "Christmas"
-
 export type Flag = "nsfw" | "religious" | "political" | "racist" | "sexist"
-
 export type ResponseFormat = "json" | "xml" | "yaml" | "plain"
 export type LanguageCode = "cs" | "de" | "en" | "es"
 export type JokeType = "single" | "twopart"
@@ -47,17 +45,6 @@ export type RequestOptions = {
 	responseFormat?: ResponseFormat // default 'json'
 	searchString?: string
 }
-
-export type JokeAPIParams = {
-	amount: number
-	lang: string
-	format: ResponseFormat
-	idRange?: string | number
-	contains?: string
-	type?: JokeType
-	blackListFlags: string
-}
-
 /**
  * A wrapper for "Object with string keys" type
  */

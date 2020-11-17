@@ -20,7 +20,9 @@ export const AVAILABLE_CATEGORIES = [
 	"Spooky",
 	"Christmas"
 ]
+
 export const AVAILABLE_FLAGS = ["nsfw", "religious", "political", "racist", "sexist"]
+
 export const SETTINGS = {
 	API_BASE: "https://sv443.net/jokeapi/v2"
 }
