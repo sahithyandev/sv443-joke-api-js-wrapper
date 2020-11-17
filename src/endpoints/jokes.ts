@@ -1,11 +1,14 @@
+// TK make this file easy-to-read and optimize it
+
 import { Response } from "node-fetch"
 import {
 	RequestOptions,
 	StrictRequestOptions,
 	Error,
 	ErrorMessages,
-	JokeAPIParams,
-	StrObject
+	StrObject,
+	ResponseFormat,
+	JokeType
 } from "../types"
 
 import { DEFAULT_OPTIONS } from "../values"
@@ -45,6 +48,16 @@ function validateReqOptions(options: StrictRequestOptions): Error | null {
 	}
 
 	return null
+}
+
+type JokeAPIParams = {
+	amount: number
+	lang: string
+	format: ResponseFormat
+	idRange?: string | number
+	contains?: string
+	type?: JokeType
+	blackListFlags: string
 }
 
 function getJokeApiParameters(options: StrictRequestOptions): JokeAPIParams {

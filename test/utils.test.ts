@@ -1,6 +1,10 @@
 import * as utilFunctions from "./../src/utils"
-import { FunctionTestData } from "./types"
 import { StrObject } from "../src/types"
+
+export type FunctionTestData = {
+	input: any
+	output: any
+}
 
 const FUNCTIONS: StrObject<FunctionTestData[]> = {
 	capitalize: [
