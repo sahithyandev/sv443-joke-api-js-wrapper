@@ -1,6 +1,6 @@
 {
 	"name": "sv443-joke-api",
-	"version": "0.0.6",
+	"version": "0.0.7",
 	"description": "JavaScript wrapper for Sv443's Joke API",
 	"author": {
 		"name": "Sahithyan",
@@ -10,7 +10,8 @@
 	"main": "dist/index",
 	"unpkg": "web/index.js",
 	"files": [
-		"web/index.js"
+		"dist",
+		"web"
 	],
 	"repository": {
 		"type": "git",
@@ -25,7 +26,8 @@
 		"build:node": "webpack --env TARGET=node",
 		"build:browser": "webpack --env TARGET=web",
 		"test": "jest",
-		"pre": "tsc && npm version patch"
+		"pre": "tsc && npm version patch",
+		"prepack": "npm run build"
 	},
 	"keywords": [
 		"api",

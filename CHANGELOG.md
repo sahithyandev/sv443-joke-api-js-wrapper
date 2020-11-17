@@ -5,7 +5,12 @@ This changelog is not showing the logs for v0.0.5 and previous versions.
 1. "Next version" part includes the work done after releasing the last version.
 2. **If a change starts with a `[IMP]`, that change requires the user to change their code.**
 
-## 0.0.6 - Latest Version
+## 0.0.7 - Latest Version
+
+- Fixes 0.0.6
+  on version 0.0.6, `dist` folder was missing in the published package.
+
+## 0.0.6
 
 - Browser builds are added.
 - Added support for `/formats` endpoint added. (other endpoints will be added shortly)
