@@ -1,4 +1,9 @@
-node_modules
-dist
-dist-*
+# config
 .vscode
+
+node_modules
+
+# builds
+dist-*
+dist
+web

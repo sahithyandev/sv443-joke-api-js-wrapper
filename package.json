@@ -6,8 +6,8 @@
 		"name": "Sahithyan",
 		"email": "sahithyan2701@gmail.com"
 	},
-	"types": "dist-node/types/index.d.ts",
-	"main": "dist-node/index",
+	"types": "dist/types/index.d.ts",
+	"main": "dist/index",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/sahithyandev/sv433-joke-api-js-wrapper.git"

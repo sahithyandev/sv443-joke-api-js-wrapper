@@ -3,6 +3,10 @@ const CopyWebpackPlugin = require("copy-webpack-plugin")
 
 module.exports = (env) => {
 	let target = env.TARGET
+	let distDir = "dist"
+
+	if (target === "node") distDir = "dist"
+	if (target === "web") distDir = "web"
 
 	return {
 		entry: "./src/index.ts",
@@ -25,7 +29,7 @@ module.exports = (env) => {
 				type: "umd"
 			},
 			filename: "index.js",
-			path: path.join(__dirname, "dist-" + target)
+			path: path.join(__dirname, distDir)
 		},
 		plugins: [
 			new CopyWebpackPlugin({
