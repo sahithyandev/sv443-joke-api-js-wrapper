@@ -1,2 +1,4 @@
-export { getFormats } from "./endpoints/formats"
-export { getJokes } from "./endpoints/jokes"
+// Add other endpoints
+
+export * from "./endpoints/formats"
+export * from "./endpoints/jokes"
