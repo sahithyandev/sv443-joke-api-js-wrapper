@@ -8,6 +8,10 @@
 	},
 	"types": "dist/types/index.d.ts",
 	"main": "dist/index",
+	"unpkg": "web/index.js",
+	"files": [
+		"web/index.js"
+	],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/sahithyandev/sv433-joke-api-js-wrapper.git"
