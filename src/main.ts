@@ -7,9 +7,9 @@ import {
 	StrObject
 } from "./types"
 
-import { API_HOME, DEFAULT_OPTIONS } from "./values"
+import { DEFAULT_OPTIONS, SETTINGS } from "./values"
 import { capitalize } from "./utils"
-import fetch from "node-fetch"
+import fetch, { Response } from "node-fetch"
 
 function validateReqOptions(options: strictRequestOptions): Error | null {
 	const rules: StrObject<Error> = {
@@ -89,7 +89,7 @@ export function getJokes(options: requestOptions = {}): Promise<Response> | null
 		}
 	}
 
-	let apiReqUrl = API_HOME + "joke/"
+	let apiReqUrl = SETTINGS.API_BASE + "/joke/"
 	let mainRouteName =
 		_options.categories !== "Any"
 			? _options.categories.map((v) => capitalize(v as string)).join(",")
@@ -111,7 +111,6 @@ export function getJokes(options: requestOptions = {}): Promise<Response> | null
 	if (validationError) {
 		throw validationError
 	} else {
-		// @ts-ignore
 		return fetch(apiReqUrl)
 	}
 }

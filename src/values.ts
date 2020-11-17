@@ -2,8 +2,6 @@
 // needed by this package
 // or the users of this package
 
-export const API_HOME = "https://sv443.net/jokeapi/v2/"
-
 export enum DEFAULT_OPTIONS {
 	amount = 1,
 	language = "en",
@@ -23,3 +21,6 @@ export const AVAILABLE_CATEGORIES = [
 	"Christmas"
 ]
 export const AVAILABLE_FLAGS = ["nsfw", "religious", "political", "racist", "sexist"]
+export const SETTINGS = {
+	API_BASE: "https://sv443.net/jokeapi/v2"
+}
