@@ -3,8 +3,8 @@ import { makeRequestToApi } from "./helper"
 import { LanguageCode, ResponseFormat } from "./../types"
 
 export type InfoReqOptions = {
-	format: ResponseFormat
-	lang: LanguageCode
+	format?: ResponseFormat
+	lang?: LanguageCode
 }
 
 export function getInfo(options: InfoReqOptions): Promise<Response> {

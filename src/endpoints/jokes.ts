@@ -11,9 +11,17 @@ import {
 	JokeType
 } from "../types"
 
-import { DEFAULT_OPTIONS } from "../values"
 import { capitalize } from "../utils"
 import { makeRequestToApi } from "./helper"
+
+export enum DEFAULT_OPTIONS {
+	amount = 1,
+	language = "en",
+	responseFormat = "json",
+	categories = "Any",
+	jokeType = "any",
+	searchString = ""
+}
 
 function validateReqOptions(options: StrictRequestOptions): Error | null {
 	const rules: StrObject<Error> = {
@@ -101,7 +109,7 @@ export function getJokes(options: RequestOptions = {}): Promise<Response> {
 	}
 
 	if (_options.amount > 10) {
-		console.warn("provided amount value is higher than 10. JokeAPI will only return 10 jokes")
+		console.warn("provided amount value is higher than 10. JokeAPI will only return 10 jokes.")
 	}
 
 	let validationError = validateReqOptions(_options)
@@ -110,5 +118,5 @@ export function getJokes(options: RequestOptions = {}): Promise<Response> {
 	let mainRouteName =
 		_options.categories !== "Any" ? _options.categories.map(capitalize).join(",") : "Any"
 
-	return makeRequestToApi(`/joke/${mainRouteName}/`, getJokeApiParameters(_options))
+	return makeRequestToApi(`/joke/${mainRouteName}`, getJokeApiParameters(_options))
 }
