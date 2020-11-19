@@ -1,6 +1,9 @@
 {
+	"name": "Sv443 Joke API",
 	"inputFiles": ["./src/index.ts"],
 	"out": "docs",
 	"mode": "library",
-	"excludePrivate": true
+	"excludePrivate": true,
+	"readme": "none",
+	"includeVersion": true
 }

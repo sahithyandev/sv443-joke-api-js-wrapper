@@ -4,21 +4,34 @@ JavaScript wrapper for the [JokeAPI](https://sv443.net/jokeapi/v2/).
 
 **Note** It's still under development. Use with **caution**.
 
-If you really want to use this library in your project. Go ahead and use it. But there may be some bugs and **there are no documentation available at the moment**.
+If you really want to use this library in your project. Go ahead and use it. But there may be some bugs.  
+Documentation can be found [here](https://sahithyandev.github.io/sv443-joke-api-js-wrapper/)
 
 ## Usage
 
 You can use it in both Browser and Node.
 
-### Browser
+First you have to import the library.
 
-1. Add the library.
+in HTML, include this script tag inside `<head>`
 
 ```html
-<script src="https://unpkg.com/sv443-joke-api@0.0.6/web/input.js"></script>
+<script src="https://unpkg.com/sv443-joke-api@0.0.7/web/input.js"></script>
 ```
 
-2. Use it.
+for node, you have to install it using `npm` or `yarn` and then import it.
+
+```bash
+npm install --save sv443-joke-api
+# OR
+yarn add sv443-joke-api
+```
+
+```javascript
+const JokeAPI = require('sv443-joke-api`);
+```
+
+After importing the library, you can
 
 ```javascript
 JokeAPI.getJokes()
@@ -28,61 +41,6 @@ JokeAPI.getJokes()
   })
 ```
 
-### Node
-
-1. Install using `yarn` or `npm`.
-
-```bash
-npm install --save sv443-joke-api
-# OR
-yarn add sv443-joke-api
-```
-
-2. Use it.
-
-```typescript
-const JokeAPI = require("sv443-joke-api");
-
-// This snippet shows the available values of those functions
-// If not defined, will be set to the default value
-// if default is not shown below, it will be left out while making a request
-JokeAPI.getJokes({
-    categories?: Category[] | "Any"; // default 'Any'
-    responseFormat?: "json" | "xml" | "yaml" | "txt"; // default 'json'
-    jokeType?: "single" | "twopart" | "any"; // default 'any'
-    searchString?: string;
-    language?: "cs" | "de" | "en" | "es"; // default 'en'
-    flags?: "" | Flag[]; // default ''
-    idRange?: {
-        from?: number;
-        to?: number;
-    };
-    amount?: number; // default 1
-}).then((res) => res.json())
-    .then((v) => console.log(v));
-```
-
 ## Development
 
-This project needs so much improvements. So don't mind to change the anything.
-
-1. [Click here](https://github.com/sahithyandev/sv433-joke-api-js-wrapper/fork) to fork this repository.
-2. Clone it to your machine.
-3. Run `npm install` in the folder.
-4. Make the changes you want.
-   Currently, I am working on adding all the necessary tests.
-5. Push your changes to the repo under your account.
-   Even if the tests are completely written, you should run `npm test` before pushing it.
-6. Pull a request.
-
-I recommend using **Visual Studio Code** with the extensions mentioned below as the development environment.
-
-- ESLint
-- Prettier
-- EditorConfig
-
-## Contributing
-
-Pull requests are always welcome.
-Be friendly.
-And when making a pull request, make sure you didn't break anything.
+Read the [Development Guide](./docs-manual/Development-Guide.md) to learn how to develop this library.
