@@ -15,8 +15,6 @@ export type FlagsReqOptions = {
 
 /**
  * Fetches available flags on the api
- *
- * @param {FlagsReqOptions} options Format options for the request
  */
 export function getFlags(options: FlagsReqOptions = {}): Promise<Response> {
 	return makeRequestToApi("/flags", options)

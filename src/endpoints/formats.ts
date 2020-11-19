@@ -7,6 +7,9 @@ export type FormatReqOptions = {
 	lang?: LanguageCode
 }
 
+/**
+ * Fetches available response formats on the api
+ */
 export function getFormats(options: FormatReqOptions = {}): Promise<Response> {
 	return makeRequestToApi("formats", options)
 }
