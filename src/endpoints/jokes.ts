@@ -71,9 +71,7 @@ export type JokesRequestOptions = {
 	responseFormat?: ResponseFormat
 	searchString?: string
 }
-/**
- * @private
- */
+
 function validateReqOptions(options: StrictJokesRequestOptions): Error | null {
 	const rules: StrObject<Error> = {
 		"options.amount < 1": {
@@ -119,9 +117,6 @@ type JokeAPIParams = {
 	blackListFlags: string
 }
 
-/**
- * @private
- */
 function getJokeApiParameters(options: StrictJokesRequestOptions): JokeAPIParams {
 	let idRange
 	if (options.idRange) {
