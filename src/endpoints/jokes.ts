@@ -2,18 +2,23 @@
 
 import { Response } from "node-fetch"
 import {
-	RequestOptions,
-	StrictRequestOptions,
 	Error,
 	ErrorMessages,
 	StrObject,
 	ResponseFormat,
-	JokeType
+	JokeType,
+	IdRangeObject,
+	Category,
+	Flag,
+	LanguageCode
 } from "../types"
 
-import { capitalize } from "../utils"
+import { capitalize } from "../_utils"
 import { makeRequestToApi } from "./helper"
 
+/**
+ * @private
+ */
 export enum DEFAULT_OPTIONS {
 	amount = 1,
 	language = "en",
@@ -23,7 +28,53 @@ export enum DEFAULT_OPTIONS {
 	searchString = ""
 }
 
-function validateReqOptions(options: StrictRequestOptions): Error | null {
+/**
+ * Strict version of JokesRequestOptions
+ * @private
+ */
+export type StrictJokesRequestOptions = {
+	amount: number
+	categories: Category[] | "Any"
+	flags: Flag[]
+	idRange?: IdRangeObject
+	jokeType: "any" | JokeType
+	language: LanguageCode
+	responseFormat: ResponseFormat
+	searchString: string
+}
+
+export type JokesRequestOptions = {
+	/**
+	 * @default 1
+	 */
+	amount?: number
+	/**
+	 * @default Any
+	 */
+	categories?: Category[] | "Any"
+	/**
+	 * @default []
+	 */
+	flags?: Flag[]
+	idRange?: IdRangeObject | number
+	/**
+	 * @default any
+	 */
+	jokeType?: "any" | JokeType
+	/**
+	 * @default en
+	 */
+	language?: LanguageCode
+	/**
+	 * @default json
+	 */
+	responseFormat?: ResponseFormat
+	searchString?: string
+}
+/**
+ * @private
+ */
+function validateReqOptions(options: StrictJokesRequestOptions): Error | null {
 	const rules: StrObject<Error> = {
 		"options.amount < 1": {
 			message: ErrorMessages.INVALID_AMOUNT,
@@ -35,7 +86,7 @@ function validateReqOptions(options: StrictRequestOptions): Error | null {
 		}
 	}
 
-	for (let rule of Object.keys(rules)) {
+	for (const rule of Object.keys(rules)) {
 		if (eval(rule)) return rules[rule]
 	}
 
@@ -68,8 +119,11 @@ type JokeAPIParams = {
 	blackListFlags: string
 }
 
-function getJokeApiParameters(options: StrictRequestOptions): JokeAPIParams {
-	let idRange = undefined
+/**
+ * @private
+ */
+function getJokeApiParameters(options: StrictJokesRequestOptions): JokeAPIParams {
+	let idRange
 	if (options.idRange) {
 		if (typeof options.idRange === "number") {
 			idRange = options.idRange
@@ -82,15 +136,15 @@ function getJokeApiParameters(options: StrictRequestOptions): JokeAPIParams {
 		amount: options.amount,
 		lang: options.language,
 		format: options.responseFormat,
-		idRange: idRange,
+		idRange,
 		contains: options.searchString,
 		type: options.jokeType !== "any" ? options.jokeType : undefined,
 		blackListFlags: options.flags.join(",")
 	}
 }
 
-export function getJokes(options: RequestOptions = {}): Promise<Response> {
-	let _options: StrictRequestOptions = {
+export function getJokes(options: JokesRequestOptions = {}): Promise<Response> {
+	const _options: StrictJokesRequestOptions = {
 		amount: options.amount || DEFAULT_OPTIONS.amount,
 		language: options.language || DEFAULT_OPTIONS.language,
 		responseFormat: options.responseFormat || DEFAULT_OPTIONS.responseFormat,
@@ -112,10 +166,10 @@ export function getJokes(options: RequestOptions = {}): Promise<Response> {
 		console.warn("provided amount value is higher than 10. JokeAPI will only return 10 jokes.")
 	}
 
-	let validationError = validateReqOptions(_options)
+	const validationError = validateReqOptions(_options)
 	if (validationError) throw validationError
 
-	let mainRouteName =
+	const mainRouteName =
 		_options.categories !== "Any" ? _options.categories.map(capitalize).join(",") : "Any"
 
 	return makeRequestToApi(`/joke/${mainRouteName}`, getJokeApiParameters(_options))

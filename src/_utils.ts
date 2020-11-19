@@ -4,6 +4,7 @@
 
 /**
  * Capitalizes a string's first letter and make other letters lowercased.
+ * @private
  */
 export const capitalize = (str: string): string => {
 	if (["", null, undefined].includes(str)) return str
@@ -13,13 +14,14 @@ export const capitalize = (str: string): string => {
 // TK find a better name for this function
 /**
  * Removes null, undefined and "" from a object
+ * @private
  */
-export const cleanObject = (p: Object): Object => {
+export const cleanObject = (p: object): object => {
 	const falseValues = [null, undefined, ""]
-	let filteredItems = Object.entries(p).filter(([_, v]) => !falseValues.includes(v))
+	const filteredItems = Object.entries(p).filter(([_, v]) => !falseValues.includes(v))
 
-	let returnObj = {}
-	for (let [key, v] of filteredItems) {
+	const returnObj = {}
+	for (const [key, v] of filteredItems) {
 		// @ts-ignore
 		returnObj[key] = v
 	}
