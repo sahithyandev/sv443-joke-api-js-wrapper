@@ -1,0 +1,7 @@
+{
+	"inputFiles": "./src",
+	"out": "docs",
+	"mode": "file",
+	"plugin": ["typedoc-plugin-markdown"],
+	"excludePrivate": true
+}
