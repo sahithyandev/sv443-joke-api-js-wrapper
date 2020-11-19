@@ -1,4 +1,4 @@
-import * as utilFunctions from "./../src/utils"
+import * as utilFunctions from "./../src/_utils"
 import { StrObject } from "../src/types"
 
 export type FunctionTestData = {
@@ -8,30 +8,35 @@ export type FunctionTestData = {
 
 const FUNCTIONS: StrObject<FunctionTestData[]> = {
 	capitalize: [
-		{ input: "", output: "" },
-		{ input: null, output: null },
-		{ input: "programming", output: "Programming" },
-		{ input: "hELLO", output: "Hello" },
-		{ input: "_ElLo", output: "_ello" }
+		{ input: [""], output: "" },
+		{ input: [null], output: null },
+		{ input: ["programming"], output: "Programming" },
+		{ input: ["hELLO"], output: "Hello" },
+		{ input: ["_ElLo"], output: "_ello" }
 	],
 	cleanObject: [
-		{ input: {}, output: {} },
-		{ input: { a: null }, output: {} },
-		{ input: { a: undefined, b: 10 }, output: { b: 10 } },
-		{ input: { a: "me", b: true, c: false, d: "" }, output: { a: "me", b: true, c: false } }
+		{ input: [{}], output: {} },
+		{ input: [{ a: null }], output: {} },
+		{ input: [{ a: undefined, b: 10 }], output: { b: 10 } },
+		{ input: [{ a: "me", b: true, c: false, d: "" }], output: { a: "me", b: true, c: false } }
+	],
+	_: [
+		{ input: [[1, 2, 3, 4, 5, 6, 7, 8], (n) => n < 0, "some"], output: false },
+		{ input: [[1, 2, 3, 4, 5, 6, 7, 8], (n) => n % 2 === 0, "some"], output: true },
+		{ input: [[], (n) => n % 2 === 0, "some"], output: true }
 	]
 }
 
-for (let functionName in FUNCTIONS) {
-	let f: Function = utilFunctions[functionName]
-	let functionTestData = FUNCTIONS[functionName]
+Object.keys(FUNCTIONS).forEach((functionName) => {
+	const f: () => any = utilFunctions[functionName]
+	const functionTestData = FUNCTIONS[functionName]
 
-	if (!f) throw `Function with name ${functionName}, is not found inside src/utils.ts`
+	if (!f) throw new Error(`Function with name ${functionName}, is not found inside src/utils.ts`)
 
 	describe(`Testing ${functionName}`, () => {
-		for (let testData of functionTestData) {
+		for (const testData of functionTestData) {
 			test(`${functionName}(${testData.input}) should be ${testData.output}`, () => {
-				let output = f.call(null, testData.input)
+				const output = f.call(null, ...testData.input)
 
 				if (typeof output === "object") {
 					expect(output).toEqual(testData.output)
@@ -41,4 +46,4 @@ for (let functionName in FUNCTIONS) {
 			})
 		}
 	})
-}
+})

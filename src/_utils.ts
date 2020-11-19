@@ -27,3 +27,26 @@ export const cleanObject = (p: object): object => {
 	}
 	return returnObj
 }
+
+type TesterFunction = (item: string) => boolean
+
+/**
+ * @todo Find a better name for this function
+ * @private
+ */
+export const arrayTesting = (
+	arr: (string | number)[],
+	tester: TesterFunction,
+	condition: "all" | "some"
+) => {
+	if (arr.length === 0) return true
+	if (!["all", "some"].includes(condition)) {
+		throw new Error("Condition can be 'all' or 'some'")
+	}
+	const testerResultsArray = arr.map((v) => tester(v.toString()))
+	if (condition === "all") {
+		return !testerResultsArray.includes(false)
+	} else {
+		return testerResultsArray.includes(true)
+	}
+}

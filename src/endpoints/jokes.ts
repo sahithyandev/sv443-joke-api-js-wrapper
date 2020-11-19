@@ -12,9 +12,9 @@ import {
 	LanguageCode
 } from "../types"
 
-import { capitalize } from "../_utils"
+import { capitalize, arrayTesting } from "../_utils"
 import { makeRequestToApi } from "./helper"
-import { ErrorMessages } from "./../values"
+import { ErrorMessages, VALUES } from "./../values"
 /**
  * Strict version of JokesRequestOptions
  * @private
@@ -60,6 +60,8 @@ export type JokesRequestOptions = {
 }
 
 function validateReqOptions(options: StrictJokesRequestOptions): Error | null {
+	// TK Test these rules
+	// if a rule have to use an imported value or function, then don't put that rule inside this object
 	const rules: StrObject<Error> = {
 		"options.amount < 1": {
 			code: ErrorMessages.INVALID_OPTION_VALUE,
@@ -73,6 +75,14 @@ function validateReqOptions(options: StrictJokesRequestOptions): Error | null {
 
 	for (const rule of Object.keys(rules)) {
 		if (eval(rule)) return rules[rule]
+	}
+
+	// if all values inside options.flags is a valid flag, then throw error
+	if (!arrayTesting(options.flags, (flag) => VALUES.AVAILABLE_FLAGS.includes(flag), "all")) {
+		return {
+			code: ErrorMessages.INVALID_OPTION_VALUE,
+			description: "All values inside 'flags' array have to be a valid flag value."
+		}
 	}
 
 	// TK Check these with fewer lines of code
@@ -149,7 +159,7 @@ export function getJokes(options: JokesRequestOptions = {}): Promise<Response> {
 	}
 	// if idRange is defined as a number,
 	// set it as from and to values on _options
-	if (options.idRange && typeof options.idRange === "number") {
+	if (typeof options.idRange === "number") {
 		_options.idRange = {
 			from: options.idRange,
 			to: options.idRange
