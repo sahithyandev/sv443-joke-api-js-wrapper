@@ -2,3 +2,4 @@
 
 export * from "./formats"
 export * from "./jokes"
+export * from "./info"
