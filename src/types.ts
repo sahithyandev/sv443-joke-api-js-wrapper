@@ -12,17 +12,12 @@ export type IdRangeObject = {
  * Type of Error object
  */
 export type Error = {
-	/** Error message */
-	message: string
+	/** Error code */
+	code: any
 	/** Description of the error */
 	description: string
 }
 
-export enum ErrorMessages {
-	INVALID_AMOUNT = "`amount` value is invalid",
-	INVALID_ID_RANGE = "`idRange` object is invalid",
-	INVALID_OPTIONS = "options object is invalid"
-}
 /**
  * A wrapper for "Object with string keys" type
  */

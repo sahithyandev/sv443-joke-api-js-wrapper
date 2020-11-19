@@ -3,7 +3,6 @@
 import { Response } from "node-fetch"
 import {
 	Error,
-	ErrorMessages,
 	StrObject,
 	ResponseFormat,
 	JokeType,
@@ -15,19 +14,7 @@ import {
 
 import { capitalize } from "../_utils"
 import { makeRequestToApi } from "./helper"
-
-/**
- * @private
- */
-export enum DEFAULT_OPTIONS {
-	amount = 1,
-	language = "en",
-	responseFormat = "json",
-	categories = "Any",
-	jokeType = "any",
-	searchString = ""
-}
-
+import { ErrorMessages } from "./../values"
 /**
  * Strict version of JokesRequestOptions
  * @private
@@ -75,11 +62,11 @@ export type JokesRequestOptions = {
 function validateReqOptions(options: StrictJokesRequestOptions): Error | null {
 	const rules: StrObject<Error> = {
 		"options.amount < 1": {
-			message: ErrorMessages.INVALID_AMOUNT,
+			code: ErrorMessages.INVALID_OPTION_VALUE,
 			description: "`amount` can't be less than 1"
 		},
 		"!Number.isSafeInteger(options.amount)": {
-			message: ErrorMessages.INVALID_AMOUNT,
+			code: ErrorMessages.INVALID_OPTION_VALUE,
 			description: "`amount` must be an integer"
 		}
 	}
@@ -92,13 +79,13 @@ function validateReqOptions(options: StrictJokesRequestOptions): Error | null {
 	if (options.idRange?.from && options.idRange?.to) {
 		if (Math.min(options.idRange.from, options.idRange.to) < 0) {
 			return {
-				message: ErrorMessages.INVALID_ID_RANGE,
+				code: ErrorMessages.INVALID_OPTION_VALUE,
 				description: "`idRange` values must be a non-negative number"
 			}
 		}
 		if (options.idRange.from > options.idRange.to) {
 			return {
-				message: ErrorMessages.INVALID_ID_RANGE,
+				code: ErrorMessages.INVALID_OPTION_VALUE,
 				description: "in `idRange`, `from` value must be smaller `to` value"
 			}
 		}
@@ -138,6 +125,18 @@ function getJokeApiParameters(options: StrictJokesRequestOptions): JokeAPIParams
 	}
 }
 
+export enum DEFAULT_OPTIONS {
+	amount = 1,
+	language = "en",
+	responseFormat = "json",
+	categories = "Any",
+	jokeType = "any",
+	searchString = ""
+}
+
+/**
+ * Fetches jokes from the api
+ */
 export function getJokes(options: JokesRequestOptions = {}): Promise<Response> {
 	const _options: StrictJokesRequestOptions = {
 		amount: options.amount || DEFAULT_OPTIONS.amount,

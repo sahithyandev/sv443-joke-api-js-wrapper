@@ -14,6 +14,11 @@ export const AVAILABLE_CATEGORIES = [
 
 export const AVAILABLE_FLAGS = ["nsfw", "religious", "political", "racist", "sexist"]
 
+export enum ErrorMessages {
+	INVALID_OPTION_VALUE,
+	UNDEFINED_REQUIRED_VALUE
+}
+
 export const SETTINGS = {
 	API_BASE: "https://sv443.net/jokeapi/v2"
 }
