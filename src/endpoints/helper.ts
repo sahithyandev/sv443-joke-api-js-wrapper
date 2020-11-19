@@ -1,7 +1,7 @@
 // this file will be used by all endpoint files
 
 import fetch, { Response } from "node-fetch"
-import { SETTINGS } from "./../values"
+import { VALUES } from "./../values"
 import { cleanObject } from "../_utils"
 
 /**
@@ -17,7 +17,7 @@ export function makeRequestToApi(routeName: string, params: object = {}): Promis
 	if (routeName.endsWith("/")) routeName = routeName.slice(0, -1)
 
 	const reqUrl =
-		SETTINGS.API_BASE +
+		VALUES.API_BASE +
 		routeName +
 		"?" +
 		Object.entries(cleanObject(params))
