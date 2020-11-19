@@ -10,6 +10,7 @@ This changelog is not showing the logs for v0.0.5 and previous versions.
 - New endpoints added
   - `/info`
   - `/categories`
+  - `/langcode`
 - Bug fixes
   - `getJokes()` was not giving the correct response. It is fixed now.
 - License changed from `ISC` to `GPL-3.0-only`
