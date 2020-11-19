@@ -3,3 +3,4 @@
 export * from "./formats"
 export * from "./jokes"
 export * from "./info"
+export * from "./categories"

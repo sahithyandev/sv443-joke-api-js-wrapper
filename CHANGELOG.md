@@ -7,7 +7,9 @@ This changelog is not showing the logs for v0.0.5 and previous versions.
 
 ## 0.0.8 - Next Version
 
-- `/info` endpoint added.
+- New endpoints added
+  - `/info`
+  - `/categories`
 - Bug fixes
   - `getJokes()` was not giving the correct response. It is fixed now.
 - License changed from `ISC` to `GPL-3.0-only`
