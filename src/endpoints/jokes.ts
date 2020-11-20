@@ -115,20 +115,11 @@ type JokeAPIParams = {
 }
 
 function getJokeApiParameters(options: StrictJokesRequestOptions): JokeAPIParams {
-	let idRange
-	if (options.idRange) {
-		if (typeof options.idRange === "number") {
-			idRange = options.idRange
-		} else {
-			idRange = `${options.idRange.from}-${options.idRange.to}`
-		}
-	}
-
 	return {
 		amount: options.amount,
 		lang: options.language,
 		format: options.responseFormat,
-		idRange,
+		idRange: options.idRange && `${options.idRange.from}-${options.idRange.to}`,
 		contains: options.searchString,
 		type: options.jokeType !== "any" ? options.jokeType : undefined,
 		blackListFlags: options.flags.join(",")
@@ -148,6 +139,8 @@ export enum DEFAULT_OPTIONS {
  * Fetches jokes from the api
  */
 export function getJokes(options: JokesRequestOptions = {}): Promise<Response> {
+	// TK try to avoid this,
+	// let the API iteself to set default options
 	const _options: StrictJokesRequestOptions = {
 		amount: options.amount || DEFAULT_OPTIONS.amount,
 		language: options.language || DEFAULT_OPTIONS.language,
@@ -164,6 +157,9 @@ export function getJokes(options: JokesRequestOptions = {}): Promise<Response> {
 			from: options.idRange,
 			to: options.idRange
 		}
+	}
+	if (typeof options.idRange === "object") {
+		_options.idRange = options.idRange
 	}
 
 	if (_options.amount > 10) {
