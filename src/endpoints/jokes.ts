@@ -24,6 +24,7 @@ const isIdRange = (idRange: IdRangeObject | number): idRange is IdRangeObject =>
  * @private
  * @deprecated
  */
+// @ts-ignore
 export type StrictJokesRequestOptions = {
 	amount: number
 	categories: Category[] | "Any"
@@ -47,7 +48,7 @@ export type JokesRequestOptions = {
 	/**
 	 * @default []
 	 */
-	flags?: Flag[]
+	blacklistFlags?: Flag[]
 	idRange?: IdRangeObject | number
 	/**
 	 * @default any
@@ -68,12 +69,10 @@ export type JokesRequestOptions = {
  * Validate Request Options
  * and it will generate warnings too
  *
- * @todo Check these with fewer lines of code
  * @private
+ * @todo Check these with fewer lines of code
  */
 function validateReqOptions(options: JokesRequestOptions): Error | null {
-	// TK Test these rules
-
 	if (options.amount) {
 		if (options.amount > 10) {
 			console.warn("Provided 'amount' value is higher than 10. JokeAPI's maximum 'amount' is 10.")
@@ -95,8 +94,8 @@ function validateReqOptions(options: JokesRequestOptions): Error | null {
 
 	// if all values inside options.flags is a valid flag, then throw error
 	if (
-		options.flags &&
-		!arrayTesting(options.flags, (flag) => VALUES.AVAILABLE_FLAGS.includes(flag), "all")
+		options.blacklistFlags &&
+		!arrayTesting(options.blacklistFlags, (flag) => VALUES.AVAILABLE_FLAGS.includes(flag), "all")
 	) {
 		return {
 			code: ErrorMessages.INVALID_OPTION_VALUE,
@@ -139,7 +138,7 @@ function getJokeApiParameters(options: JokesRequestOptions): JokeAPIParams {
 		format: options.responseFormat,
 		contains: options.searchString,
 		type: options.jokeType !== "any" ? options.jokeType : undefined,
-		blackListFlags: options.flags && options.flags.join(",")
+		blackListFlags: options.blacklistFlags && options.blacklistFlags.join(",")
 	}
 	if (options.idRange && isIdRange(options.idRange)) {
 		params.idRange = `${options.idRange.from}-${options.idRange.to}`
@@ -147,7 +146,7 @@ function getJokeApiParameters(options: JokesRequestOptions): JokeAPIParams {
 
 	return params
 }
-
+// @ts-ignore
 enum DEFAULT_OPTIONS {
 	amount = 1,
 	language = "en",
