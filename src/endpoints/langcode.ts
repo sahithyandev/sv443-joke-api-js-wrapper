@@ -7,7 +7,7 @@ export type LangCodeReqOptions = {
 	/**
 	 * Name of the language
 	 */
-	langaugeName: string
+	languageName: string
 	format?: ResponseFormat
 	lang?: LanguageCode
 }
@@ -16,14 +16,14 @@ export type LangCodeReqOptions = {
  * Fetches language code of a language
  */
 export function getLangCode(options: LangCodeReqOptions): Promise<Response> {
-	if (!options.langaugeName) {
+	if (options === undefined || options.languageName === undefined) {
 		throw {
 			code: ErrorMessages.UNDEFINED_REQUIRED_VALUE,
 			description: "getLangCode: options.languageName can't be undefined"
 		} as Error
 	}
 
-	return makeRequestToApi(`/langcode/${options.langaugeName}`, {
+	return makeRequestToApi(`/langcode/${options.languageName}`, {
 		...options,
 		languageName: undefined
 	})

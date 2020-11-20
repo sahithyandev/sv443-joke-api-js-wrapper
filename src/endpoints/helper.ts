@@ -22,7 +22,7 @@ export function makeRequestToApi(routeName: string, params: object = {}): Promis
 	if (Object.keys(cleanedParams).length !== 0) {
 		reqUrl +=
 			"?" +
-			Object.entries(cleanObject(params))
+			Object.entries(cleanedParams)
 				.map(([key, v]) => `${key}=${v}`)
 				.join("&")
 	}
