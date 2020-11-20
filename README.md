@@ -16,7 +16,7 @@ First you have to import the library.
 in HTML, include this script tag inside `<head>`
 
 ```html
-<script src="https://unpkg.com/sv443-joke-api@0.0.8/web/input.js"></script>
+<script src="https://unpkg.com/sv443-joke-api@0.0.8/web/index.js"></script>
 ```
 
 for node, you have to install it using `npm` or `yarn` and then import it.
@@ -40,6 +40,9 @@ JokeAPI.getJokes()
     console.log(data)
   })
 ```
+
+Here is a codepen example for how you can use this library.
+https://codepen.io/sahith27/pen/QWEPwPg
 
 ## Development
 
