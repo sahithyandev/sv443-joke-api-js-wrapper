@@ -3,7 +3,6 @@
 import { Response } from "node-fetch"
 import {
 	Error,
-	StrObject,
 	ResponseFormat,
 	JokeType,
 	IdRangeObject,
@@ -15,9 +14,15 @@ import {
 import { capitalize, arrayTesting } from "../_utils"
 import { makeRequestToApi } from "./helper"
 import { ErrorMessages, VALUES } from "./../values"
+
+const isIdRange = (idRange: IdRangeObject | number): idRange is IdRangeObject => {
+	return typeof idRange !== "number"
+}
+
 /**
  * Strict version of JokesRequestOptions
  * @private
+ * @deprecated
  */
 export type StrictJokesRequestOptions = {
 	amount: number
@@ -59,34 +64,47 @@ export type JokesRequestOptions = {
 	searchString?: string
 }
 
-function validateReqOptions(options: StrictJokesRequestOptions): Error | null {
+/**
+ * Validate Request Options
+ * and it will generate warnings too
+ *
+ * @todo Check these with fewer lines of code
+ * @private
+ */
+function validateReqOptions(options: JokesRequestOptions): Error | null {
 	// TK Test these rules
-	// if a rule have to use an imported value or function, then don't put that rule inside this object
-	const rules: StrObject<Error> = {
-		"options.amount < 1": {
-			code: ErrorMessages.INVALID_OPTION_VALUE,
-			description: "`amount` can't be less than 1"
-		},
-		"!Number.isSafeInteger(options.amount)": {
+
+	if (options.amount) {
+		if (options.amount > 10) {
+			console.warn("Provided 'amount' value is higher than 10. JokeAPI's maximum 'amount' is 10.")
+		}
+
+		if (options.amount < 1) {
+			return {
+				code: ErrorMessages.INVALID_OPTION_VALUE,
+				description: "`amount` can't be less than 1"
+			}
+		}
+	}
+	if (!Number.isSafeInteger(options.amount)) {
+		return {
 			code: ErrorMessages.INVALID_OPTION_VALUE,
 			description: "`amount` must be an integer"
 		}
 	}
 
-	for (const rule of Object.keys(rules)) {
-		if (eval(rule)) return rules[rule]
-	}
-
 	// if all values inside options.flags is a valid flag, then throw error
-	if (!arrayTesting(options.flags, (flag) => VALUES.AVAILABLE_FLAGS.includes(flag), "all")) {
+	if (
+		options.flags &&
+		!arrayTesting(options.flags, (flag) => VALUES.AVAILABLE_FLAGS.includes(flag), "all")
+	) {
 		return {
 			code: ErrorMessages.INVALID_OPTION_VALUE,
 			description: "All values inside 'flags' array have to be a valid flag value."
 		}
 	}
 
-	// TK Check these with fewer lines of code
-	if (options.idRange?.from && options.idRange?.to) {
+	if (options.idRange && isIdRange(options.idRange)) {
 		if (Math.min(options.idRange.from, options.idRange.to) < 0) {
 			return {
 				code: ErrorMessages.INVALID_OPTION_VALUE,
@@ -105,28 +123,32 @@ function validateReqOptions(options: StrictJokesRequestOptions): Error | null {
 }
 
 type JokeAPIParams = {
-	amount: number
-	lang: string
-	format: ResponseFormat
+	amount?: number
+	lang?: string
+	format?: ResponseFormat
 	idRange?: string | number
 	contains?: string
 	type?: JokeType
-	blackListFlags: string
+	blackListFlags?: string
 }
 
-function getJokeApiParameters(options: StrictJokesRequestOptions): JokeAPIParams {
-	return {
+function getJokeApiParameters(options: JokesRequestOptions): JokeAPIParams {
+	const params: JokeAPIParams = {
 		amount: options.amount,
 		lang: options.language,
 		format: options.responseFormat,
-		idRange: options.idRange && `${options.idRange.from}-${options.idRange.to}`,
 		contains: options.searchString,
 		type: options.jokeType !== "any" ? options.jokeType : undefined,
-		blackListFlags: options.flags.join(",")
+		blackListFlags: options.flags && options.flags.join(",")
 	}
+	if (options.idRange && isIdRange(options.idRange)) {
+		params.idRange = `${options.idRange.from}-${options.idRange.to}`
+	}
+
+	return params
 }
 
-export enum DEFAULT_OPTIONS {
+enum DEFAULT_OPTIONS {
 	amount = 1,
 	language = "en",
 	responseFormat = "json",
@@ -139,38 +161,22 @@ export enum DEFAULT_OPTIONS {
  * Fetches jokes from the api
  */
 export function getJokes(options: JokesRequestOptions = {}): Promise<Response> {
-	// TK try to avoid this,
-	// let the API iteself to set default options
-	const _options: StrictJokesRequestOptions = {
-		amount: options.amount || DEFAULT_OPTIONS.amount,
-		language: options.language || DEFAULT_OPTIONS.language,
-		responseFormat: options.responseFormat || DEFAULT_OPTIONS.responseFormat,
-		flags: options.flags || [],
-		categories: options.categories || DEFAULT_OPTIONS.categories,
-		jokeType: options.jokeType || DEFAULT_OPTIONS.jokeType,
-		searchString: options.searchString || ""
-	}
 	// if idRange is defined as a number,
-	// set it as from and to values on _options
+	// set it as from and to values on options
 	if (typeof options.idRange === "number") {
-		_options.idRange = {
+		options.idRange = {
 			from: options.idRange,
 			to: options.idRange
-		}
-	}
-	if (typeof options.idRange === "object") {
-		_options.idRange = options.idRange
+		} as IdRangeObject
 	}
 
-	if (_options.amount > 10) {
-		console.warn("provided amount value is higher than 10. JokeAPI will only return 10 jokes.")
-	}
-
-	const validationError = validateReqOptions(_options)
+	const validationError = validateReqOptions(options)
 	if (validationError) throw validationError
 
 	const mainRouteName =
-		_options.categories !== "Any" ? _options.categories.map(capitalize).join(",") : "Any"
+		options.categories instanceof Array && options.categories.length !== 0
+			? options.categories.map(capitalize).join(",")
+			: "Any"
 
-	return makeRequestToApi(`/joke/${mainRouteName}`, getJokeApiParameters(_options))
+	return makeRequestToApi(`/joke/${mainRouteName}`, getJokeApiParameters(options))
 }
