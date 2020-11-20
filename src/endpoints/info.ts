@@ -1,6 +1,6 @@
 import { Response } from "node-fetch"
-import { makeRequestToApi } from "./helper"
 import { LanguageCode, ResponseFormat } from "./../types"
+import { makeRequestToApi } from "./helper"
 
 export type InfoReqOptions = {
 	format?: ResponseFormat

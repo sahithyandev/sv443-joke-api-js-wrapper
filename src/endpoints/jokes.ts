@@ -2,18 +2,18 @@
 
 import { Response } from "node-fetch"
 import {
-	Error,
-	ResponseFormat,
-	JokeType,
-	IdRangeObject,
 	Category,
+	Error,
 	Flag,
-	LanguageCode
+	IdRangeObject,
+	JokeType,
+	LanguageCode,
+	ResponseFormat
 } from "../types"
 
-import { capitalize, arrayTesting } from "../_utils"
-import { makeRequestToApi } from "./helper"
+import { arrayTesting, capitalize } from "../_utils"
 import { ErrorMessages, VALUES } from "./../values"
+import { makeRequestToApi } from "./helper"
 
 const isIdRange = (idRange: IdRangeObject | number): idRange is IdRangeObject => {
 	return typeof idRange !== "number"
@@ -84,15 +84,14 @@ function validateReqOptions(options: JokesRequestOptions): Error | null {
 				description: "`amount` can't be less than 1"
 			}
 		}
-	}
-	if (!Number.isSafeInteger(options.amount)) {
-		return {
-			code: ErrorMessages.INVALID_OPTION_VALUE,
-			description: "`amount` must be an integer"
+		if (!Number.isSafeInteger(options.amount)) {
+			return {
+				code: ErrorMessages.INVALID_OPTION_VALUE,
+				description: "`amount` must be an integer"
+			}
 		}
 	}
 
-	// if all values inside options.flags is a valid flag, then throw error
 	if (
 		options.blacklistFlags &&
 		!arrayTesting(options.blacklistFlags, (flag) => VALUES.AVAILABLE_FLAGS.includes(flag), "all")

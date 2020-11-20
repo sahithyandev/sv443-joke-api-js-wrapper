@@ -1,7 +1,7 @@
 import { Response } from "node-fetch"
-import { makeRequestToApi } from "./helper"
-import { LanguageCode, ResponseFormat, Error } from "./../types"
+import { Error, LanguageCode, ResponseFormat } from "./../types"
 import { ErrorMessages } from "./../values"
+import { makeRequestToApi } from "./helper"
 
 export type LangCodeReqOptions = {
 	/**
