@@ -3,10 +3,11 @@
 This changelog is not showing the logs for v0.0.5 and previous versions.
 
 1. "Next version" part includes the work done after releasing the last version.
-2. **If a change starts with a `[IMP]`, that change requires the user to change their code.**
+2. **If an entry starts with a `[IMP]`, that means the user have to change some of their code.**
 
-## 0.0.8 - Next Version
+## 0.0.8 - Latest Version
 
+- Documentation created using `typedoc`
 - New endpoints added
   - `/info`
   - `/categories`
@@ -14,10 +15,12 @@ This changelog is not showing the logs for v0.0.5 and previous versions.
   - `/languages`
   - `/flags`
 - Bug fixes
-  - `getJokes()` was not giving the correct response. It is fixed now.
-- License changed from `ISC` to `GPL-3.0-only`
+  - Bad response from `getJokes()` fixed.
+- Changes in types
+  - `[IMP]` `StrictJokesRequestOptions` is now deprecated (will be removed in next update).
+  - `[IMP]` `JokesRequestOptions.flags` is changed to `JokesRequestOptions.blacklistFlags`
 
-## 0.0.7 - Latest Version
+## 0.0.7
 
 - Fixes 0.0.6.  
   on version 0.0.6, `dist` folder was missing in the published package.

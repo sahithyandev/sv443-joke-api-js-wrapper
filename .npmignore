@@ -1,6 +1,5 @@
 node_modules
 .github
 .vscode
-cli
 test
 dist-types
