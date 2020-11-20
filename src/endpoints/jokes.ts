@@ -72,8 +72,8 @@ export type JokesRequestOptions = {
  * @private
  * @todo Check these with fewer lines of code
  */
-function validateReqOptions(options: JokesRequestOptions): Error | null {
-	if (options.amount) {
+export function validateReqOptions(options: JokesRequestOptions): Error | null {
+	if (options.amount !== undefined) {
 		if (options.amount > 10) {
 			console.warn("Provided 'amount' value is higher than 10. JokeAPI's maximum 'amount' is 10.")
 		}

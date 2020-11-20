@@ -1,7 +1,7 @@
 export enum ErrorMessages {
 	INVALID_OPTION_VALUE,
 	UNDEFINED_REQUIRED_VALUE,
-	INVALID_OPTION_TYPE
+	UNKNOWN_OPTION
 }
 
 export const VALUES = {

@@ -20,7 +20,7 @@ const FUNCTIONS: StrObject<FunctionTestData[]> = {
 		{ input: [{ a: undefined, b: 10 }], output: { b: 10 } },
 		{ input: [{ a: "me", b: true, c: false, d: "" }], output: { a: "me", b: true, c: false } }
 	],
-	_: [
+	arrayTesting: [
 		{ input: [[1, 2, 3, 4, 5, 6, 7, 8], (n) => n < 0, "some"], output: false },
 		{ input: [[1, 2, 3, 4, 5, 6, 7, 8], (n) => n % 2 === 0, "some"], output: true },
 		{ input: [[], (n) => n % 2 === 0, "some"], output: true }
