@@ -73,6 +73,26 @@ export type JokesRequestOptions = {
  * @todo Check these with fewer lines of code
  */
 export function validateReqOptions(options: JokesRequestOptions): Error | null {
+	const AVAILABLE_OPTIONS = [
+		"amount",
+		"categories",
+		"blacklistFlags",
+		"idRange",
+		"jokeType",
+		"language",
+		"responseFormat",
+		"searchString"
+	]
+
+	for (const optionName of Object.keys(options)) {
+		if (!AVAILABLE_OPTIONS.includes(optionName)) {
+			return {
+				code: ErrorMessages.UNKNOWN_OPTION,
+				description: `'${optionName}' is not an available option`
+			}
+		}
+	}
+
 	if (options.amount !== undefined) {
 		if (options.amount > 10) {
 			console.warn("Provided 'amount' value is higher than 10. JokeAPI's maximum 'amount' is 10.")
@@ -87,7 +107,7 @@ export function validateReqOptions(options: JokesRequestOptions): Error | null {
 		if (!Number.isSafeInteger(options.amount)) {
 			return {
 				code: ErrorMessages.INVALID_OPTION_VALUE,
-				description: "`amount` must be an integer"
+				description: "'amount' must be an integer"
 			}
 		}
 	}
