@@ -1,7 +1,7 @@
 // use this file to export all endpoints
 
 export * from "./formats"
-export { getJokes, JokesRequestOptions } from "./jokes"
+export { getJokes } from "./jokes"
 export * from "./info"
 export * from "./categories"
 export * from "./langcode"
