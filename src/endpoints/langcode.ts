@@ -15,7 +15,7 @@ export type LangCodeReqOptions = {
 /**
  * Fetches language code of a language
  */
-export function getLangCode(options: LangCodeReqOptions): Promise<Response> {
+export function getLangCode(options: LangCodeReqOptions): Promise<object | Response> {
 	if (options === undefined || options.languageName === undefined) {
 		throw {
 			code: ErrorMessages.UNDEFINED_REQUIRED_VALUE,

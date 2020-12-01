@@ -10,6 +10,6 @@ export type InfoReqOptions = {
 /**
  * Fetches the basic info of the api
  */
-export function getInfo(options: InfoReqOptions): Promise<Response> {
+export function getInfo(options: InfoReqOptions): Promise<object | Response> {
 	return makeRequestToApi("/info", options)
 }

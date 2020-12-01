@@ -7,6 +7,6 @@ export type LanguagesReqOptions = {
 	lang?: LanguageCode
 }
 
-export function getLanguages(options: LanguagesReqOptions): Promise<Response> {
+export function getLanguages(options: LanguagesReqOptions): Promise<object | Response> {
 	return makeRequestToApi("/languages", options)
 }

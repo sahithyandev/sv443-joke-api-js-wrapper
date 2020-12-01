@@ -10,7 +10,10 @@ import { SETTINGS, VALUES } from "./../values"
  * @param {string} routeName Route of the request
  * @param {object} params Parameters to pass in the request
  */
-export function makeRequestToApi(routeName: string, params: object = {}): Promise<any | Response> {
+export function makeRequestToApi(
+	routeName: string,
+	params: object = {}
+): Promise<object | Response> {
 	if (routeName.charAt(0) !== "/") routeName = "/" + routeName
 	if (routeName.endsWith("/")) routeName = routeName.slice(0, -1)
 
@@ -30,7 +33,6 @@ export function makeRequestToApi(routeName: string, params: object = {}): Promis
 	const request = fetch(reqUrl)
 	// TK make logging optional and provide a way to disable them
 	console.log("Sending request", reqUrl)
-	console.log("handle-internally", SETTINGS.handleResponsesInternally)
 	if (SETTINGS.handleResponsesInternally) {
 		return handleResponseInternally(request)
 	} else {
@@ -38,16 +40,16 @@ export function makeRequestToApi(routeName: string, params: object = {}): Promis
 	}
 }
 
-export function handleResponseInternally(request: Promise<Response>): Promise<any> {
+export function handleResponseInternally(request: Promise<Response>): Promise<object> {
 	return new Promise((resolve, reject) => {
 		request
 			.then((response) => response.json())
 			.then((jsonData) => {
-				const { data, error } = jsonData
+				const { error, ...data } = jsonData
 				if (error) {
 					reject(data)
 				}
-				resolve(data)
+				resolve(data as object)
 			})
 			.catch((err) => {
 				reject(err)

@@ -10,6 +10,6 @@ export type CategoriesReqOptions = {
 /**
  * Fetches available categories on the api
  */
-export function getCategories(options: CategoriesReqOptions): Promise<Response> {
+export function getCategories(options: CategoriesReqOptions): Promise<object | Response> {
 	return makeRequestToApi("/categories", options)
 }

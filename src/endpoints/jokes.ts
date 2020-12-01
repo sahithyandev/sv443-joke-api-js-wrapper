@@ -178,7 +178,7 @@ enum DEFAULT_OPTIONS {
 /**
  * Fetches jokes from the api
  */
-export function getJokes(options: JokesRequestOptions = {}): Promise<Response> {
+export function getJokes(options: JokesRequestOptions = {}): Promise<object | Response> {
 	// if idRange is defined as a number,
 	// set it as from and to values on options
 	if (typeof options.idRange === "number") {
