@@ -2,4 +2,4 @@
 
 export * from "./endpoints/index"
 export * from "./types"
-export * from "./values"
+export { SETTINGS, VALUES } from "./values"

@@ -2,7 +2,7 @@
 
 import fetch, { Response } from "node-fetch"
 import { cleanObject } from "../_utils"
-import { SETTINGS, VALUES } from "./../values"
+import { log, SETTINGS, VALUES } from "./../values"
 
 /**
  * Makes a request to the API
@@ -31,8 +31,7 @@ export function makeRequestToApi(
 	}
 
 	const request = fetch(reqUrl)
-	// TK make logging optional and provide a way to disable them
-	console.log("Sending request", reqUrl)
+	log("Sending request", reqUrl)
 	if (SETTINGS.handleResponsesInternally) {
 		return handleResponseInternally(request)
 	} else {
