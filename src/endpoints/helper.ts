@@ -17,7 +17,7 @@ export function makeRequestToApi(
 	if (routeName.charAt(0) !== "/") routeName = "/" + routeName
 	if (routeName.endsWith("/")) routeName = routeName.slice(0, -1)
 
-	// undefined values removed
+	// remove undefined values
 	const cleanedParams = cleanObject(params)
 
 	let reqUrl = VALUES.API_BASE + routeName
@@ -46,11 +46,14 @@ export function handleResponseInternally(request: Promise<Response>): Promise<ob
 			.then((jsonData) => {
 				const { error, ...data } = jsonData
 				if (error) {
+					log("Error occured: ", data)
 					reject(data)
 				}
+				log("Got the data: ", data)
 				resolve(data as object)
 			})
 			.catch((err) => {
+				log("Error occured: ", err)
 				reject(err)
 			})
 	})
