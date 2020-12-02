@@ -13,7 +13,7 @@ import {
 
 import { arrayTesting, capitalize } from "../_utils"
 import { ErrorMessages, VALUES } from "./../values"
-import { makeRequestToApi } from "./helper"
+import { BaseRequestOptions, makeRequestToApi } from "./helper"
 
 const isIdRange = (idRange: IdRangeObject | number): idRange is IdRangeObject => {
 	return typeof idRange !== "number"
@@ -36,7 +36,7 @@ export type StrictJokesRequestOptions = {
 	searchString: string
 }
 
-export type JokesRequestOptions = {
+export interface JokesRequestOptions extends BaseRequestOptions {
 	/**
 	 * @default 1
 	 */
@@ -54,14 +54,6 @@ export type JokesRequestOptions = {
 	 * @default any
 	 */
 	jokeType?: "any" | JokeType
-	/**
-	 * @default en
-	 */
-	language?: LanguageCode
-	/**
-	 * @default json
-	 */
-	responseFormat?: ResponseFormat
 	searchString?: string
 }
 
@@ -153,8 +145,8 @@ type JokeAPIParams = {
 function getJokeApiParameters(options: JokesRequestOptions): JokeAPIParams {
 	const params: JokeAPIParams = {
 		amount: options.amount,
-		lang: options.language,
-		format: options.responseFormat,
+		lang: options.lang,
+		format: options.format,
 		contains: options.searchString,
 		type: options.jokeType !== "any" ? options.jokeType : undefined,
 		blackListFlags: options.blacklistFlags && options.blacklistFlags.join(",")

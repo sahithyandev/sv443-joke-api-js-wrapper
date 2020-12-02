@@ -1,11 +1,7 @@
 import { Response } from "node-fetch"
-import { LanguageCode, ResponseFormat } from "./../types"
-import { makeRequestToApi } from "./helper"
+import { BaseRequestOptions, makeRequestToApi } from "./helper"
 
-export type LanguagesReqOptions = {
-	format?: ResponseFormat
-	lang?: LanguageCode
-}
+export interface LanguagesReqOptions extends BaseRequestOptions {}
 
 export function getLanguages(options: LanguagesReqOptions): Promise<object | Response> {
 	return makeRequestToApi("/languages", options)

@@ -10,7 +10,8 @@
 		"no-console": false,
 		"no-eval": false,
 		"prefer-conditional-expression": false,
-		"no-object-literal-type-assertion": false
+		"no-object-literal-type-assertion": false,
+		"no-empty-interface": false
 	},
 	"rulesDirectory": []
 }

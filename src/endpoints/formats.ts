@@ -1,15 +1,11 @@
 import { Response } from "node-fetch"
-import { LanguageCode, ResponseFormat } from "./../types"
-import { makeRequestToApi } from "./helper"
+import { BaseRequestOptions, makeRequestToApi } from "./helper"
 
-export type FormatReqOptions = {
-	format?: ResponseFormat
-	lang?: LanguageCode
-}
+export interface FormatReqOptions extends BaseRequestOptions {}
 
 /**
  * Fetches available response formats on the api
  */
-export function getFormats(options: FormatReqOptions = {}): Promise<Response> {
+export function getFormats(options: FormatReqOptions = {}): Promise<object | Response> {
 	return makeRequestToApi("formats", options)
 }

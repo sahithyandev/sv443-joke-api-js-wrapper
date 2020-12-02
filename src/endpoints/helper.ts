@@ -1,8 +1,20 @@
 // this file will be used by all endpoint files
 
 import fetch, { Response } from "node-fetch"
+import { LanguageCode, ResponseFormat } from "../types"
 import { cleanObject } from "../_utils"
 import { log, SETTINGS, VALUES } from "./../values"
+
+export interface BaseRequestOptions {
+	/**
+	 * Type of the response
+	 */
+	format?: ResponseFormat
+	/**
+	 * Language to use in the response
+	 */
+	lang?: LanguageCode
+}
 
 /**
  * Makes a request to the API

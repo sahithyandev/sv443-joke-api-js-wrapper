@@ -1,15 +1,13 @@
 import { Response } from "node-fetch"
-import { Error, LanguageCode, ResponseFormat } from "./../types"
+import { Error } from "./../types"
 import { ErrorMessages } from "./../values"
-import { makeRequestToApi } from "./helper"
+import { BaseRequestOptions, makeRequestToApi } from "./helper"
 
-export type LangCodeReqOptions = {
+export interface LangCodeReqOptions extends BaseRequestOptions {
 	/**
 	 * Name of the language
 	 */
 	languageName: string
-	format?: ResponseFormat
-	lang?: LanguageCode
 }
 
 /**

@@ -1,11 +1,7 @@
 import { Response } from "node-fetch"
-import { LanguageCode, ResponseFormat } from "./../types"
-import { makeRequestToApi } from "./helper"
+import { BaseRequestOptions, makeRequestToApi } from "./helper"
 
-export type InfoReqOptions = {
-	format?: ResponseFormat
-	lang?: LanguageCode
-}
+export interface InfoReqOptions extends BaseRequestOptions {}
 
 /**
  * Fetches the basic info of the api

@@ -1,11 +1,8 @@
 import { Response } from "node-fetch"
-import { LanguageCode, ResponseFormat } from "./../types"
-import { makeRequestToApi } from "./helper"
+import { BaseRequestOptions, makeRequestToApi } from "./helper"
 
-export type CategoriesReqOptions = {
-	format?: ResponseFormat
-	lang?: LanguageCode
-}
+// ust for better readability.
+export interface CategoriesReqOptions extends BaseRequestOptions {}
 
 /**
  * Fetches available categories on the api
