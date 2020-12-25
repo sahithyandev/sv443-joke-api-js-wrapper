@@ -5,7 +5,11 @@ This changelog is not showing the logs for v0.0.5 and previous versions.
 1. "Next version" part includes the work done after releasing the last version.
 2. **If an entry starts with a `[IMP]`, that means the user have to change some of their code.**
 
-## 0.0.8 - Latest Version
+# 0.1.0 - The Safe Mode Update _ (Latest)
+
+- Add support for JokeAPI v2.3.0
+  - "Safe mode" can be turned on by setting `JokeAPI.SETTINGS.safeMode` to true
+## 0.0.8
 
 - Documentation created using `typedoc`
 - New endpoints added
