@@ -1,6 +1,6 @@
 # JokeAPI - JavaScript wrapper
 
-JavaScript wrapper for the [JokeAPI](https://sv443.net/jokeapi/v2/).
+JavaScript wrapper for the [JokeAPI](https://jokeapi.dev/).
 
 **Note** It's still under development. Use with **caution**.
 

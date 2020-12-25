@@ -5,7 +5,7 @@ export enum ErrorMessages {
 }
 
 export const VALUES = {
-	API_BASE: "https://sv443.net/jokeapi/v2",
+	API_BASE: "https://jokeapi.dev/",
 	AVAILABLE_FLAGS: ["nsfw", "religious", "political", "racist", "sexist"],
 	AVAILABLE_CATEGORIES: ["Programming", "Miscellaneous", "Dark", "Pun", "Spooky", "Christmas"]
 }
