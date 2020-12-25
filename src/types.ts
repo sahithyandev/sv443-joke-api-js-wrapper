@@ -1,5 +1,16 @@
-export type Category = "Programming" | "Miscellaneous" | "Dark" | "Pun" | "Spooky" | "Christmas"
-export type Flag = "nsfw" | "religious" | "political" | "racist" | "sexist"
+export type Category =
+	| "Programming"
+	| "Misc"
+	| "Dark"
+	| "Pun"
+	| "Spooky"
+	| "Christmas"
+	// aliases
+	| "Miscellaneous"
+	| "Coding"
+	| "Development"
+	| "Halloween"
+export type Flag = "nsfw" | "religious" | "political" | "racist" | "sexist" | "explicit"
 export type ResponseFormat = "json" | "xml" | "yaml" | "plain"
 export type LanguageCode = "cs" | "de" | "en" | "es"
 export type JokeType = "single" | "twopart"
