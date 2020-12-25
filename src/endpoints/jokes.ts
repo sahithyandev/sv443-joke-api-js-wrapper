@@ -106,7 +106,7 @@ export function validateReqOptions(options: JokesRequestOptions): Error | null {
 
 	if (
 		options.blacklistFlags &&
-		!arrayTesting(options.blacklistFlags, (flag) => VALUES.AVAILABLE_FLAGS.includes(flag), "all")
+		!arrayTesting(options.blacklistFlags, (flag) => VALUES._AVAILABLE_FLAGS.includes(flag), "all")
 	) {
 		return {
 			code: ErrorMessages.INVALID_OPTION_VALUE,
