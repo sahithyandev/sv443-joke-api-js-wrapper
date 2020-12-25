@@ -22,6 +22,11 @@ export const log = (...message: any[]): void => {
 
 interface SettingsType {
 	/**
+	 * To turn on "safe mode" on JokeAPI (introduced in v2.3.0)
+	 * @default false
+	 */
+	safeMode: boolean
+	/**
 	 * If set true, the responses will be processed by the package itself.
 	 * This means, every request to the API will return a new Promise, resolves to the actual data you requested, or an error.
 	 * @default false
@@ -36,6 +41,7 @@ interface SettingsType {
 }
 
 export const SETTINGS: SettingsType = {
+	safeMode: false,
 	handleResponsesInternally: false,
 	logging: false
 }

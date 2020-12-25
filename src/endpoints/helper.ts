@@ -35,12 +35,13 @@ export function makeRequestToApi(
 	let reqUrl = VALUES.API_BASE + routeName
 
 	if (Object.keys(cleanedParams).length !== 0) {
-		reqUrl +=
-			"?" +
-			Object.entries(cleanedParams)
-				.map(([key, v]) => `${key}=${v}`)
-				.join("&")
+		const formattedParams = Object.entries(cleanedParams)
+			.map(([key, v]) => `${key}=${v}`)
+			.join("&")
+
+		reqUrl += "?" + SETTINGS.safeMode ? "safe-mode&" : "" + formattedParams
 	}
+	log("Requesting", reqUrl)
 
 	const request = fetch(reqUrl)
 	log("Sending request", reqUrl)
