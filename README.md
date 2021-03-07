@@ -9,10 +9,9 @@ Documentation can be found [here](https://sahithyandev.github.io/sv443-joke-api-
 
 This wrapper may have a lot of bugs. **Use with caution**.
 
-I am not currently working on this project. So it won't receive any updates in the near future. 
-I want to let you know that, If you create an issue, I will surely try to solve it.
+This is an **Abandoned** project. I am not currently working on this project.
 
-I also want to say that, **I am open to transfer this project to someone else**.
+**I am open to transfer this project to someone else**.
 
 ## Usage
 
