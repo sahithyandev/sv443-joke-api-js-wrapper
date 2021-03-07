@@ -2,10 +2,17 @@
 
 JavaScript wrapper for the [JokeAPI](https://jokeapi.dev/).
 
-**Note** It's still under development. Use with **caution**.
-
 If you really want to use this library in your project. Go ahead and use it. But there may be some bugs.  
 Documentation can be found [here](https://sahithyandev.github.io/sv443-joke-api-js-wrapper/)
+
+## Important Note
+
+This wrapper may have a lot of bugs. **Use with caution**.
+
+I am not currently working on this project. So it won't receive any updates in the near future. 
+I want to let you know that, If you create an issue, I will surely try to solve it.
+
+I also want to say that, **I am open to transfer this project to someone else**.
 
 ## Usage
 
