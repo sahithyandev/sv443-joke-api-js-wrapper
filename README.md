@@ -28,7 +28,7 @@ yarn add sv443-joke-api
 ```
 
 ```javascript
-const JokeAPI = require('sv443-joke-api`);
+const JokeAPI = require('sv443-joke-api');
 ```
 
 After importing the library, you can
