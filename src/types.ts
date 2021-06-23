@@ -12,7 +12,7 @@ export type Category =
 	| "Halloween"
 export type Flag = "nsfw" | "religious" | "political" | "racist" | "sexist" | "explicit"
 export type ResponseFormat = "json" | "xml" | "yaml" | "plain"
-export type LanguageCode = "cs" | "de" | "en" | "es"
+export type LanguageCode = "cs" | "de" | "en" | "es" | "fr"
 export type JokeType = "single" | "twopart"
 export type IdRangeObject = {
 	from: number
